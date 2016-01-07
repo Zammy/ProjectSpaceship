@@ -1,0 +1,675 @@
+fileFormatVersion: 2
+guid: 66bd8023a4f0042798f3c7e565b6d7b8
+timeCreated: 1452184326
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: ships_0
+    21300002: ships_1
+    21300004: ships_2
+    21300006: ships_3
+    21300008: ships_4
+    21300010: ships_5
+    21300012: ships_6
+    21300014: ships_7
+    21300016: ships_8
+    21300018: ships_9
+    21300020: ships_10
+    21300022: ships_11
+    21300024: ships_12
+    21300026: ships_13
+    21300028: ships_14
+    21300030: ships_15
+    21300032: ships_16
+    21300034: ships_17
+    21300036: ships_18
+    21300038: ships_19
+    21300040: ships_20
+    21300042: ships_21
+    21300044: ships_22
+    21300046: ships_23
+    21300048: ships_24
+    21300050: ships_25
+    21300052: ships_26
+    21300054: ships_27
+    21300056: ships_28
+    21300058: ships_29
+    21300060: ships_30
+    21300062: ships_31
+    21300064: ships_32
+    21300066: ships_33
+    21300068: ships_34
+    21300070: ships_35
+    21300072: ships_36
+    21300074: ships_37
+    21300076: ships_38
+    21300078: ships_39
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: ships_0
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 3153
+        width: 133
+        height: 106
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 34.029297, y: 34.333984}
+        - {x: -40.970703, y: 34.333984}
+        - {x: -40.970703, y: -28.666016}
+        - {x: -32.970703, y: -32.666016}
+        - {x: 39.029297, y: -32.666016}
+        - {x: 42.029297, y: -29.666016}
+        - {x: 42.029297, y: 10.333984}
+        - {x: 41.029297, y: 11.333984}
+    - name: ships_1
+      rect:
+        serializedVersion: 2
+        x: 326
+        y: 3114
+        width: 21
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: ships_2
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 3106
+        width: 21
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: ships_3
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 3106
+        width: 20
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: ships_4
+      rect:
+        serializedVersion: 2
+        x: 422
+        y: 3114
+        width: 21
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: ships_5
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 2874
+        width: 133
+        height: 136
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 34.029297, y: 21.183594}
+        - {x: 29.029297, y: 22.183594}
+        - {x: 22.029297, y: 15.183594}
+        - {x: 10.029297, y: 39.183594}
+        - {x: 8.029297, y: 42.183594}
+        - {x: -11.970703, y: 42.183594}
+        - {x: -40.970703, y: 21.183594}
+        - {x: -40.970703, y: -19.816406}
+        - {x: -37.970703, y: -27.816406}
+        - {x: -21.970703, y: -22.816406}
+        - {x: -16.970703, y: -18.816406}
+        - {x: -21.970703, y: -23.816406}
+        - {x: -21.970703, y: -29.816406}
+        - {x: -16.970703, y: -36.816406}
+        - {x: -10.970703, y: -40.816406}
+        - {x: -9.970703, y: -41.816406}
+        - {x: 17.029297, y: -41.816406}
+        - {x: 42.029297, y: -24.816406}
+        - {x: 42.029297, y: 13.183594}
+        - {x: 41.029297, y: 17.183594}
+    - name: ships_6
+      rect:
+        serializedVersion: 2
+        x: 318
+        y: 2846
+        width: 32
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: ships_7
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 2846
+        width: 33
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: ships_8
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 2625
+        width: 197
+        height: 137
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -56.54297, y: 43.990234}
+        - {x: -47.54297, y: 21.990234}
+        - {x: -39.54297, y: 9.990234}
+        - {x: -58.54297, y: 8.990234}
+        - {x: -60.54297, y: -6.0097656}
+        - {x: -60.54297, y: -42.009766}
+        - {x: 61.45703, y: -42.009766}
+        - {x: 61.45703, y: 43.990234}
+    - name: ships_9
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 2565
+        width: 33
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: ships_10
+      rect:
+        serializedVersion: 2
+        x: 386
+        y: 2565
+        width: 32
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: ships_11
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 2357
+        width: 205
+        height: 169
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -45.11914, y: 52.60742}
+        - {x: -63.11914, y: 26.607422}
+        - {x: -63.11914, y: -24.392578}
+        - {x: -36.11914, y: -52.39258}
+        - {x: 34.88086, y: -52.39258}
+        - {x: 47.88086, y: -48.39258}
+        - {x: 63.88086, y: -26.392578}
+        - {x: 63.88086, y: 50.60742}
+        - {x: 58.88086, y: 52.60742}
+    - name: ships_12
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 2310
+        width: 33
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: ships_13
+      rect:
+        serializedVersion: 2
+        x: 389
+        y: 2310
+        width: 33
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: ships_14
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 2105
+        width: 197
+        height: 174
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -9.542969, y: 54.06836}
+        - {x: -18.542969, y: 44.06836}
+        - {x: -60.54297, y: 16.06836}
+        - {x: -60.54297, y: -53.93164}
+        - {x: 59.45703, y: -53.93164}
+        - {x: 61.45703, y: -52.93164}
+        - {x: 61.45703, y: -0.9316406}
+        - {x: 21.457031, y: 54.06836}
+    - name: ships_15
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 2053
+        width: 33
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: ships_16
+      rect:
+        serializedVersion: 2
+        x: 386
+        y: 2053
+        width: 32
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: ships_17
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 1858
+        width: 101
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -18.126953, y: 43.60547}
+        - {x: -31.126953, y: 29.605469}
+        - {x: -31.126953, y: -40.39453}
+        - {x: -30.126953, y: -43.39453}
+        - {x: 31.873047, y: -43.39453}
+        - {x: 31.873047, y: 29.605469}
+        - {x: 11.873047, y: 43.60547}
+    - name: ships_18
+      rect:
+        serializedVersion: 2
+        x: 367
+        y: 1798
+        width: 35
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: ships_19
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 1610
+        width: 101
+        height: 141
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -10.126953, y: 44.527344}
+        - {x: -12.126953, y: 32.527344}
+        - {x: -12.126953, y: 18.527344}
+        - {x: -8.126953, y: 16.527344}
+        - {x: -11.126953, y: 16.527344}
+        - {x: -16.126953, y: 24.527344}
+        - {x: -29.126953, y: 20.527344}
+        - {x: -31.126953, y: 13.527344}
+        - {x: -31.126953, y: -43.472656}
+        - {x: 31.873047, y: -43.472656}
+        - {x: 31.873047, y: 20.527344}
+        - {x: 9.873047, y: 44.527344}
+    - name: ships_20
+      rect:
+        serializedVersion: 2
+        x: 337
+        y: 1546
+        width: 29
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: ships_21
+      rect:
+        serializedVersion: 2
+        x: 367
+        y: 1577
+        width: 35
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: ships_22
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 1546
+        width: 28
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: ships_23
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 1333
+        width: 197
+        height: 134
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -25.542969, y: 41.60742}
+        - {x: -40.54297, y: 32.60742}
+        - {x: -60.54297, y: -8.392578}
+        - {x: -60.54297, y: -32.39258}
+        - {x: -53.54297, y: -41.39258}
+        - {x: 61.45703, y: -41.39258}
+        - {x: 61.45703, y: 5.607422}
+        - {x: 26.457031, y: 41.60742}
+    - name: ships_24
+      rect:
+        serializedVersion: 2
+        x: 321
+        y: 1286
+        width: 57
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -2.5097656, y: 27.691406}
+        - {x: -15.509766, y: 27.691406}
+        - {x: -17.509766, y: 25.691406}
+        - {x: -17.509766, y: -10.308594}
+        - {x: -3.5097656, y: -27.308594}
+        - {x: 14.490234, y: -27.308594}
+        - {x: 18.490234, y: -19.308594}
+        - {x: 18.490234, y: 9.691406}
+        - {x: 15.490234, y: 16.691406}
+    - name: ships_25
+      rect:
+        serializedVersion: 2
+        x: 389
+        y: 1286
+        width: 57
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -0.6738281, y: 27.691406}
+        - {x: -17.673828, y: 16.691406}
+        - {x: -17.673828, y: -27.308594}
+        - {x: 10.326172, y: -27.308594}
+        - {x: 18.326172, y: -24.308594}
+        - {x: 18.326172, y: 27.691406}
+    - name: ships_26
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 1081
+        width: 205
+        height: 142
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 53.88086, y: 24.06836}
+        - {x: 28.88086, y: 44.06836}
+        - {x: -32.11914, y: 44.06836}
+        - {x: -63.11914, y: 25.06836}
+        - {x: -63.11914, y: 0.068359375}
+        - {x: -47.11914, y: -43.93164}
+        - {x: 51.88086, y: -43.93164}
+        - {x: 63.88086, y: -16.93164}
+        - {x: 63.88086, y: 20.06836}
+        - {x: 61.88086, y: 27.06836}
+    - name: ships_27
+      rect:
+        serializedVersion: 2
+        x: 321
+        y: 1042
+        width: 29
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: ships_28
+      rect:
+        serializedVersion: 2
+        x: 370
+        y: 1034
+        width: 29
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: ships_29
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 1042
+        width: 28
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: ships_30
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 854
+        width: 101
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -9.126953, y: 27.910156}
+        - {x: -31.126953, y: 11.910156}
+        - {x: -31.126953, y: -14.089844}
+        - {x: -13.126953, y: -27.089844}
+        - {x: 12.873047, y: -27.089844}
+        - {x: 26.873047, y: -21.089844}
+        - {x: 31.873047, y: -12.089844}
+        - {x: 31.873047, y: 14.910156}
+        - {x: 21.873047, y: 27.910156}
+    - name: ships_31
+      rect:
+        serializedVersion: 2
+        x: 373
+        y: 802
+        width: 21
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: ships_32
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 466
+        width: 205
+        height: 268
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 10.880859, y: 83.69922}
+        - {x: -20.11914, y: 83.69922}
+        - {x: -63.11914, y: -34.30078}
+        - {x: -63.11914, y: -76.30078}
+        - {x: -61.11914, y: -81.30078}
+        - {x: -58.11914, y: -82.30078}
+        - {x: 63.88086, y: -82.30078}
+        - {x: 63.88086, y: 20.699219}
+        - {x: 60.88086, y: 23.699219}
+    - name: ships_33
+      rect:
+        serializedVersion: 2
+        x: 293
+        y: 410
+        width: 21
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: ships_34
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 438
+        width: 60
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -16.207031, y: 21.972656}
+        - {x: -18.207031, y: 18.972656}
+        - {x: -18.207031, y: -11.027344}
+        - {x: -12.207031, y: -21.027344}
+        - {x: 17.792969, y: -21.027344}
+        - {x: 19.792969, y: -13.027344}
+        - {x: 19.792969, y: 21.972656}
+    - name: ships_35
+      rect:
+        serializedVersion: 2
+        x: 454
+        y: 410
+        width: 20
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: ships_36
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 90
+        width: 204
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -17.503906, y: 80.87109}
+        - {x: -62.503906, y: 40.871094}
+        - {x: -62.503906, y: -64.12891}
+        - {x: -53.503906, y: -80.12891}
+        - {x: 32.496094, y: -80.12891}
+        - {x: 64.49609, y: -34.128906}
+        - {x: 64.49609, y: -11.128906}
+        - {x: 11.496094, y: 80.87109}
+    - name: ships_37
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 54
+        width: 33
+        height: 69
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: ships_38
+      rect:
+        serializedVersion: 2
+        x: 389
+        y: 54
+        width: 33
+        height: 69
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: ships_39
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 3
+        width: 214
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
