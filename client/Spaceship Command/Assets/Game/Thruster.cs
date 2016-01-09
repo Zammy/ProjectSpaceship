@@ -27,7 +27,14 @@ public class Thruster : MonoBehaviour
 
             this.isActive = value;
 
-            this.Particles.gameObject.SetActive(value);
+            if (value)
+            {
+                this.Particles.Play();
+            }
+            else
+            {
+                this.Particles.Stop();
+            }
         }
 
     }
@@ -35,7 +42,6 @@ public class Thruster : MonoBehaviour
 	// Use this for initialization
 	void Start () 
     {
-        Debug.Log(this.transform.forward);
 	}
 	
 	// Update is called once per frame
@@ -44,7 +50,7 @@ public class Thruster : MonoBehaviour
 	    if (this.isActive )
         {
             var forward = this.transform.up * POWER;
-            this.ApplyForceOn.AddForce(forward);
+            this.ApplyForceOn.AddForce(forward); //, this.transform.position);
         }
 	}
 }
