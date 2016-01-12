@@ -7,6 +7,8 @@ public class Thruster : MonoBehaviour
     //Set through Unity
     public float POWER;
 
+    public ThrusterType ThrusterType;
+
     public Rigidbody2D ApplyForceOn;
 
     public ParticleSystem Particles;
@@ -27,8 +29,12 @@ public class Thruster : MonoBehaviour
 
             this.isActive = value;
 
+
+//            this.Particles.emission.enabled = value;
+
             if (value)
             {
+//                this.Particles.emission.enabled = value;
                 this.Particles.Play();
             }
             else

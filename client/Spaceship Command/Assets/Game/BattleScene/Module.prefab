@@ -40,7 +40,7 @@ Rigidbody2D:
   m_GameObject: {fileID: 153128}
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0.15
+  m_LinearDrag: 0.01
   m_AngularDrag: 0.15
   m_GravityScale: 0
   m_IsKinematic: 0
@@ -95,15 +95,11 @@ MonoBehaviour:
     Modificated:
     - Object: {fileID: 466666}
       ObjeckLink: -385383554
-      PropertyPath: m_LocalPosition
-      Mode: 0
-    - Object: {fileID: 466666}
-      ObjeckLink: -385383554
       PropertyPath: m_RootOrder
       Mode: 0
     - Object: {fileID: 5041760}
       ObjeckLink: -638562624
-      PropertyPath: m_Interpolate
+      PropertyPath: m_LinearDrag
       Mode: 0
     NonPrefabObjects: []
     NonPrefabComponents: []

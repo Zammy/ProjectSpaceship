@@ -72,7 +72,7 @@ Rigidbody2D:
   m_GameObject: {fileID: 186326}
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0.15
+  m_LinearDrag: 0.01
   m_AngularDrag: 0.15
   m_GravityScale: 0
   m_IsKinematic: 0
@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e16d65d56a7d843a8afb68f4956a4f7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  POWER: 2
+  POWER: 3
   ApplyForceOn: {fileID: 5062398}
   Particles: {fileID: 19882792}
 --- !u!114 &11457366
@@ -576,7 +576,7 @@ ParticleSystem:
     serializedVersion: 2
     m_Type: 0
     rate:
-      scalar: 30
+      scalar: 60
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -635,8 +635,8 @@ ParticleSystem:
           inSlope: -2
           outSlope: -2
           tangentMode: 0
-        - time: 0.99717516
-          value: 0.35714304
+        - time: 1
+          value: 0
           inSlope: 0
           outSlope: 0
           tangentMode: 0
