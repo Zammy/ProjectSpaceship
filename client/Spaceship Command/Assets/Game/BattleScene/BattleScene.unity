@@ -197,7 +197,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
 --- !u!1001 &433197382
 Prefab:
   m_ObjectHideFlags: 0
@@ -266,15 +266,9 @@ FixedJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: -0.2857143, y: 0.00000011126125}
+  m_ConnectedAnchor: {x: -0.28571436, y: -0.14285703}
   m_DampingRatio: 0
   m_Frequency: 0
---- !u!114 &473988475 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 11433422, guid: 203a765a6d7f54b61b1a36ce5367840a,
-    type: 2}
-  m_PrefabInternal: {fileID: 1329805504}
-  m_Script: {fileID: 11500000, guid: e16d65d56a7d843a8afb68f4956a4f7b, type: 3}
 --- !u!1 &589399741
 GameObject:
   m_ObjectHideFlags: 0
@@ -332,7 +326,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!1 &601589573
 GameObject:
   m_ObjectHideFlags: 0
@@ -390,7 +384,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
 --- !u!1 &705644688 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 186326, guid: 203a765a6d7f54b61b1a36ce5367840a, type: 2}
@@ -413,15 +407,9 @@ FixedJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0.2857143, y: -0.00000011126125}
+  m_ConnectedAnchor: {x: 0.28571424, y: -0.14285727}
   m_DampingRatio: 0
   m_Frequency: 0
---- !u!114 &705644691 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 11433422, guid: 203a765a6d7f54b61b1a36ce5367840a,
-    type: 2}
-  m_PrefabInternal: {fileID: 1039905003}
-  m_Script: {fileID: 11500000, guid: e16d65d56a7d843a8afb68f4956a4f7b, type: 3}
 --- !u!1001 &808145041
 Prefab:
   m_ObjectHideFlags: 0
@@ -551,12 +539,6 @@ FixedJoint2D:
   m_ConnectedAnchor: {x: 0.2857143, y: -0.14285715}
   m_DampingRatio: 0
   m_Frequency: 0
---- !u!114 &1012838254 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 11433422, guid: 203a765a6d7f54b61b1a36ce5367840a,
-    type: 2}
-  m_PrefabInternal: {fileID: 1012838250}
-  m_Script: {fileID: 11500000, guid: e16d65d56a7d843a8afb68f4956a4f7b, type: 3}
 --- !u!1001 &1037710587
 Prefab:
   m_ObjectHideFlags: 0
@@ -680,7 +662,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 474816, guid: 203a765a6d7f54b61b1a36ce5367840a, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 474816, guid: 203a765a6d7f54b61b1a36ce5367840a, type: 2}
       propertyPath: m_LocalPosition.z
@@ -696,11 +678,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 474816, guid: 203a765a6d7f54b61b1a36ce5367840a, type: 2}
       propertyPath: m_LocalRotation.z
-      value: 0.7071066
+      value: -0.92387956
       objectReference: {fileID: 0}
     - target: {fileID: 474816, guid: 203a765a6d7f54b61b1a36ce5367840a, type: 2}
       propertyPath: m_LocalRotation.w
-      value: -0.70710695
+      value: 0.3826833
       objectReference: {fileID: 0}
     - target: {fileID: 474816, guid: 203a765a6d7f54b61b1a36ce5367840a, type: 2}
       propertyPath: m_RootOrder
@@ -713,6 +695,10 @@ Prefab:
     - target: {fileID: 11433422, guid: 203a765a6d7f54b61b1a36ce5367840a, type: 2}
       propertyPath: ThrusterType
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 11433422, guid: 203a765a6d7f54b61b1a36ce5367840a, type: 2}
+      propertyPath: POWER
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 203a765a6d7f54b61b1a36ce5367840a, type: 2}
@@ -891,7 +877,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 474816, guid: 203a765a6d7f54b61b1a36ce5367840a, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 474816, guid: 203a765a6d7f54b61b1a36ce5367840a, type: 2}
       propertyPath: m_LocalPosition.z
@@ -907,11 +893,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 474816, guid: 203a765a6d7f54b61b1a36ce5367840a, type: 2}
       propertyPath: m_LocalRotation.z
-      value: 0.7071068
+      value: 0.92387956
       objectReference: {fileID: 0}
     - target: {fileID: 474816, guid: 203a765a6d7f54b61b1a36ce5367840a, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 0.7071067
+      value: 0.3826833
       objectReference: {fileID: 0}
     - target: {fileID: 474816, guid: 203a765a6d7f54b61b1a36ce5367840a, type: 2}
       propertyPath: m_RootOrder
@@ -932,6 +918,10 @@ Prefab:
     - target: {fileID: 11433422, guid: 203a765a6d7f54b61b1a36ce5367840a, type: 2}
       propertyPath: ThrusterType
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 11433422, guid: 203a765a6d7f54b61b1a36ce5367840a, type: 2}
+      propertyPath: POWER
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 203a765a6d7f54b61b1a36ce5367840a, type: 2}
@@ -968,7 +958,7 @@ Transform:
   - {fileID: 1648379802}
   - {fileID: 1012838251}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 6
 --- !u!1 &1579811582
 GameObject:
   m_ObjectHideFlags: 0
@@ -996,11 +986,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a115a783b03042618adec108804b9af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FrontLeft: {fileID: 705644691}
-  FrontRight: {fileID: 473988475}
-  Front: {fileID: 1774272303}
-  BackLeft: {fileID: 1648379805}
-  BackRight: {fileID: 1012838254}
 --- !u!4 &1579811584
 Transform:
   m_ObjectHideFlags: 0
@@ -1088,12 +1073,6 @@ FixedJoint2D:
   m_ConnectedAnchor: {x: -0.2857143, y: -0.14285715}
   m_DampingRatio: 0
   m_Frequency: 0
---- !u!114 &1648379805 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 11433422, guid: 203a765a6d7f54b61b1a36ce5367840a,
-    type: 2}
-  m_PrefabInternal: {fileID: 1648379801}
-  m_Script: {fileID: 11500000, guid: e16d65d56a7d843a8afb68f4956a4f7b, type: 3}
 --- !u!1001 &1774272299
 Prefab:
   m_ObjectHideFlags: 0
@@ -1173,12 +1152,6 @@ FixedJoint2D:
   m_ConnectedAnchor: {x: 0, y: 0.2857143}
   m_DampingRatio: 0
   m_Frequency: 0
---- !u!114 &1774272303 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 11433422, guid: 203a765a6d7f54b61b1a36ce5367840a,
-    type: 2}
-  m_PrefabInternal: {fileID: 1774272299}
-  m_Script: {fileID: 11500000, guid: e16d65d56a7d843a8afb68f4956a4f7b, type: 3}
 --- !u!50 &1774272306 stripped
 Rigidbody2D:
   m_PrefabParentObject: {fileID: 5062398, guid: 203a765a6d7f54b61b1a36ce5367840a,

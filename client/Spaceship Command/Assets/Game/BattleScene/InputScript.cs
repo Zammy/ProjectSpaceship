@@ -1,27 +1,29 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class InputScript : MonoBehaviour 
 {
+    private Dictionary<ThrusterType, KeyCode> keymap = new Dictionary<ThrusterType, KeyCode>()
+    {
+        { ThrusterType.ControlLeft, KeyCode.Q },
+        { ThrusterType.ControlRight, KeyCode.E },
+        { ThrusterType.MainLeft , KeyCode.A },
+        { ThrusterType.MainRight , KeyCode.D },
+    };
 
-    //Set through Unity
-    public Thruster FrontLeft;
-    public Thruster FrontRight;
-    public Thruster Front;
-    public Thruster BackLeft;
-    public Thruster BackRight;
-    //
-
-	
     void Update()
     {
-        if (this.Front == null)
-            return;
-
-        this.FrontLeft.IsActive = Input.GetKey(KeyCode.Q);
-        this.FrontRight.IsActive = Input.GetKey(KeyCode.E);
-        this.Front.IsActive = Input.GetKey(KeyCode.W);
-        this.BackLeft.IsActive = Input.GetKey(KeyCode.A);
-        this.BackRight.IsActive = Input.GetKey(KeyCode.D);
+        foreach(var kvp in keymap)
+        {
+            if (Input.GetKeyDown(kvp.Value))
+            {
+                PlayerClient.Instance.FireThruster(kvp.Key);
+            }
+            else if (Input.GetKeyUp(kvp.Value))
+            {
+                PlayerClient.Instance.StopThruster(kvp.Key);
+            }
+        }
     }
 }

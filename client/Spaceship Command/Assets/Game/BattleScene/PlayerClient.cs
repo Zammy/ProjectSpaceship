@@ -14,33 +14,57 @@ public enum ThrusterType
 
 public class PlayerClient : NetworkBehaviour 
 {
+    public static PlayerClient Instance { get; private set;}
+
     Dictionary<ThrusterType, Thruster> thrusters;
 
-	// Use this for initialization
-	void Start () 
+    void Awake()
     {
-        if (this.isServer)
-        {
-            this.thrusters = new Dictionary<ThrusterType, Thruster>();
+        Instance = this;
 
-            Thruster[] thrustersArray = FindObjectsOfType<Thruster>();
-
-            foreach(var thruster in thrustersArray)
-            {
-                this.thrusters.Add( thruster.ThrusterType, thruster);
-            }
-        }
-	}
-   
-    //Executed on client
-    public void ThrusterActivated(ThrusterType t)
-    {
-        this.CmdFireThruster(t);
+//        #if UNITY_EDITOR
+//        this.ExtractThrusters();
+//        #endif
     }
 
-    public void ThrusterDeactivated(ThrusterType t)
+    void Start()
     {
-        this.CmdStopThruster(t);
+        Debug.Log("PlayerClient Start()");
+        Debug.Log("isServer " + this.isServer);
+        Debug.Log("isClient " + this.isClient);
+        Debug.Log("isLocalPlayer" + this.isLocalPlayer);
+
+        if (!this.isClient)
+        {
+            this.ExtractThrusters();
+        }
+    }
+
+    void ExtractThrusters()
+    {
+        Debug.Log("Thruster loading...");
+        this.thrusters = new Dictionary<ThrusterType, Thruster>();
+        Thruster[] thrustersArray = FindObjectsOfType<Thruster>();
+        if (thrustersArray.Length == 0)
+        {
+            Debug.LogError("No thrusters found!");
+        }
+        foreach (var thruster in thrustersArray)
+        {
+            Debug.Log("Adding " + thruster.ThrusterType.ToString());
+            this.thrusters.Add(thruster.ThrusterType, thruster);
+        }
+    }
+   
+    //Executed on client
+    public void FireThruster(ThrusterType t)
+    {
+        this.thrusters[t].IsActive = true;
+    }
+
+    public void StopThruster(ThrusterType t)
+    {
+        this.thrusters[t].IsActive = false;
     }
     //
 

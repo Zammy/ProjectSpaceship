@@ -116,9 +116,11 @@ MonoBehaviour:
     Links: []
   Modifications:
     Modificated: []
-    NonPrefabObjects: []
+    NonPrefabObjects:
+    - child: {fileID: 22445160}
+      parent: {fileID: 22489842}
     NonPrefabComponents: []
-    RemovedObjects: 
+    RemovedObjects: e941fe33397b2363a635316893faa4ba6ed7de18c76af123737e3223c1840092dab1ecb27859d3c4
     TransformParentChanges: []
   ParentPrefabGUID: 
   PrefabGUID: 010867c9f60a84a8f9ea435502f558cb
@@ -165,105 +167,9 @@ MonoBehaviour:
       InstanceTarget: {fileID: 11443294}
   Modifications:
     Modificated:
-    - Object: {fileID: 149714}
-      ObjeckLink: 1663269689
-      PropertyPath: m_Name
-      Mode: 0
-    - Object: {fileID: 22489842}
-      ObjeckLink: -919253531
-      PropertyPath: m_LocalPosition
-      Mode: 0
     - Object: {fileID: 22489842}
       ObjeckLink: -919253531
       PropertyPath: m_RootOrder
-      Mode: 0
-    - Object: {fileID: 22489842}
-      ObjeckLink: -919253531
-      PropertyPath: m_AnchoredPosition
-      Mode: 0
-    - Object: {fileID: 11450438}
-      ObjeckLink: 590511731
-      PropertyPath: m_Text
-      Mode: 0
-    - Object: {fileID: 11422502}
-      ObjeckLink: -1293110822
-      PropertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.size
-      Mode: 0
-    - Object: {fileID: 11422502}
-      ObjeckLink: -1293110822
-      PropertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      Mode: 0
-    - Object: {fileID: 11422502}
-      ObjeckLink: -1293110822
-      PropertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      Mode: 0
-    - Object: {fileID: 11422502}
-      ObjeckLink: -1293110822
-      PropertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      Mode: 0
-    - Object: {fileID: 11422502}
-      ObjeckLink: -1293110822
-      PropertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      Mode: 0
-    - Object: {fileID: 11422502}
-      ObjeckLink: -1293110822
-      PropertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
-      Mode: 0
-    - Object: {fileID: 11422502}
-      ObjeckLink: -1293110822
-      PropertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_FloatArgument
-      Mode: 0
-    - Object: {fileID: 11422502}
-      ObjeckLink: -1293110822
-      PropertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      Mode: 0
-    - Object: {fileID: 11422502}
-      ObjeckLink: -1293110822
-      PropertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
-      Mode: 0
-    - Object: {fileID: 11422502}
-      ObjeckLink: -1293110822
-      PropertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      Mode: 0
-    - Object: {fileID: 11422502}
-      ObjeckLink: -1293110822
-      PropertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.size
-      Mode: 0
-    - Object: {fileID: 11422502}
-      ObjeckLink: -1293110822
-      PropertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      Mode: 0
-    - Object: {fileID: 11422502}
-      ObjeckLink: -1293110822
-      PropertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      Mode: 0
-    - Object: {fileID: 11422502}
-      ObjeckLink: -1293110822
-      PropertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      Mode: 0
-    - Object: {fileID: 11422502}
-      ObjeckLink: -1293110822
-      PropertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      Mode: 0
-    - Object: {fileID: 11422502}
-      ObjeckLink: -1293110822
-      PropertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
-      Mode: 0
-    - Object: {fileID: 11422502}
-      ObjeckLink: -1293110822
-      PropertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_FloatArgument
-      Mode: 0
-    - Object: {fileID: 11422502}
-      ObjeckLink: -1293110822
-      PropertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      Mode: 0
-    - Object: {fileID: 11422502}
-      ObjeckLink: -1293110822
-      PropertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
-      Mode: 0
-    - Object: {fileID: 11422502}
-      ObjeckLink: -1293110822
-      PropertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       Mode: 0
     NonPrefabObjects: []
     NonPrefabComponents: []
@@ -375,8 +281,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -85, y: -95}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -82, y: -234}
+  m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &100100000
 Prefab:

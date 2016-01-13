@@ -1,69 +1,69 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class ThrusterButton : MonoBehaviour
 {
     public ThrusterType ThrusterType;
 
-    PlayerClient playerClient = null;
+    private Dictionary<ThrusterType, KeyCode> keymap = new Dictionary<ThrusterType, KeyCode>()
+    {
+        { ThrusterType.ControlLeft, KeyCode.Q },
+        { ThrusterType.ControlRight, KeyCode.E },
+        { ThrusterType.MainLeft , KeyCode.A },
+        { ThrusterType.MainRight , KeyCode.D },
+    };
+
     PlayerClient PlayerClient
     {
         get
         {
-            if (this.playerClient == null)
-            {
-                this.playerClient = FindObjectOfType<PlayerClient>();
-            }
-
-            return this.playerClient;
+            return PlayerClient.Instance;
         }
-    }
-
-    void Start()
-    {
     }
 
     void Update()
     {
-        switch (this.ThrusterType)
+        foreach(var kvp in keymap)
         {
-            case ThrusterType.MainLeft:
+            if (this.ThrusterType != kvp.Key)
+                continue;
+
+            if (Input.GetKeyDown(kvp.Value))
             {
-                if (Input.GetKey(KeyCode.A))
-                {
-                    this.PointerDown();
-                }
-                if (Input.GetKeyUp(KeyCode.A))
-                {
-                    this.PointerUp();
-                }
-                break;
+                this.PointerDown();
             }
-            case ThrusterType.MainRight:
+            else if (Input.GetKeyUp(kvp.Value))
             {
-                if (Input.GetKeyDown(KeyCode.D))
-                {
-                    this.PointerDown();
-                }
-                if (Input.GetKeyUp(KeyCode.D))
-                {
-                    this.PointerUp();
-                }
-                break;
+                this.PointerUp();
             }
-            default:
-                break;
         }
     }
 
     public void PointerDown()
     {
-        this.PlayerClient.ThrusterActivated(this.ThrusterType);
+        this.GetComponent<Image>().color = Color.red;
+
+        Debug.Log("PointerDown() " + this.ThrusterType);
+
+        if (this.PlayerClient != null)
+        {
+//            this.PlayerClient.ThrusterActivated(this.ThrusterType);
+            this.PlayerClient.CmdFireThruster(this.ThrusterType);
+        }
     }
 
     public void PointerUp()
     {
-        this.PlayerClient.ThrusterDeactivated(this.ThrusterType);
+        Debug.Log("PointerUp() "  + this.ThrusterType);
+
+        this.GetComponent<Image>().color = Color.white;
+
+        if (this.PlayerClient != null)
+        {
+//            this.PlayerClient.ThrusterDeactivated(this.ThrusterType);
+            this.PlayerClient.CmdStopThruster(this.ThrusterType);
+        }
     }
 }

@@ -12,12 +12,19 @@ public class StartScene : NetworkBehaviour
 
     public GameObject MainPage;
     public GameObject HostPage;
+    public GameObject ClientPage;
     //
 
     void Start()
     {
         this.NetworkManager.ClientConnected += this.OnClientConnected ;
         this.NetworkManager.ServerConnected += this.OnServerConnected ;
+
+        string savedServer = PlayerPrefs.GetString("server");
+        if (savedServer != null)
+        {
+            this.IP.text = savedServer;
+        }
     }
 
     void OnDestroy()
@@ -26,10 +33,18 @@ public class StartScene : NetworkBehaviour
 
     public void ConnectAsClient()
     {
+        this.MainPage.SetActive(false);
+        this.ClientPage.SetActive(true);
+
         if (this.IP.text != "")
         {
             this.NetworkManager.networkAddress = this.IP.text;
         }
+
+        PlayerPrefs.SetString("server", this.NetworkManager.networkAddress);
+        PlayerPrefs.Save();
+
+        Debug.Log("Trying to connect to " + this.NetworkManager.networkAddress + ":" + this.NetworkManager.networkPort);
         this.NetworkManager.StartClient();
     }
 
