@@ -1,67 +1,97 @@
 ﻿using System;
 using UnityEngine.Networking;
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace Network
 {
-    public enum MessageType
+    public static class MessageHandler
     {
-        DerivedData = 0,
-        Message2 = 1,
-    }
+        static Dictionary<Type, uint> msgIndexer = new Dictionary<Type, uint>();
 
-    public abstract class ExMessageBase : MessageBase
-    {
-        protected abstract MessageType GetMessageType() ;
-
-        public override void Serialize(NetworkWriter writer)
+        static uint GetMsgIndexFromType(Type type)
         {
-            writer.WritePackedUInt32((uint) this.GetMessageType());
-            
-            base.Serialize(writer);
+            return msgIndexer[type];
         }
 
-        public static Type GetTypeOfMessage(MessageType type)
+        static Type GetMsgTypeFromIndex(uint index)
         {
-            switch (type) {
-            case MessageType.DerivedData:
+            foreach(var kvp in msgIndexer)
             {
-                return typeof(SampleMessage);
+                if (kvp.Value == index)
+                {
+                    return kvp.Key;
+                }
             }
-            default:
-                return null;
+
+            return null;
+        }
+
+        public static void Init()
+        {
+            List<Type> allNetworkMessages = new List<Type>();
+            foreach( var assembly in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                var types = assembly.GetTypes();
+                foreach(var type in types)
+                {
+                    if (type.IsSubclassOf(typeof(MessageBase)) 
+                        && type.Namespace == "Network")
+                    {
+                        allNetworkMessages.Add(type);
+                    }
+                }
+            }
+
+            for (uint i = 0; i < allNetworkMessages.Count; i++)
+            {
+                Debug.LogFormat("Adding type {0} on index {1}", allNetworkMessages[(int)i], i);
+                msgIndexer.Add(allNetworkMessages[(int)i], i);
             }
         }
 
-        public static ExMessageBase Deserialize(byte[] buffer)
+        public static byte[] Serialize(MessageBase msg)
+        {
+            var networkWriter = new NetworkWriter();
+            uint index = GetMsgIndexFromType( msg.GetType() );
+            networkWriter.WritePackedUInt32( index );
+            msg.Serialize(networkWriter);
+            return networkWriter.AsArray();
+        }
+
+        public static MessageBase Deserialize(byte[] buffer)
         {
             var networkReader = new NetworkReader(buffer);
-            var messageType = (MessageType)networkReader.ReadPackedUInt32();
-            var type = ExMessageBase.GetTypeOfMessage(messageType);
-            var msg = System.Activator.CreateInstance(type) as ExMessageBase;
+            uint messageIndex = networkReader.ReadPackedUInt32();
+            Type type = GetMsgTypeFromIndex(messageIndex);
+            if (type == null)
+            {
+                Debug.LogErrorFormat("Could not find type with index {0}", messageIndex);
+                return null;
+            }
+            var msg = System.Activator.CreateInstance(type) as MessageBase;
             msg.Deserialize(networkReader);
             return msg;
         }
     }
 
-    public class SampleMessage : ExMessageBase
+    public class StationSelectMsg : MessageBase
     {
-        int a = 1;
-        string b = "2";
-        Vector3 c = new Vector3(3, 3, 3);
+        public Allegiance Allegiance;
+        public Stations Station;
 
-        protected override MessageType GetMessageType()
+        public StationSelectMsg()
         {
-            return MessageType.DerivedData;
         }
 
+        public StationSelectMsg( Allegiance allegiance, Stations station)
+        {
+            this.Allegiance = allegiance;
+            this.Station = station;
+        }
         public override string ToString()
         {
-            return string.Format("[DerivedData] a[{0}] b[{1}] c[{2}]", a, b, c);
+            return string.Format("[StationSelect] Allegiance={0} Station={1}", this.Allegiance, this.Station);
         }
     }
-
-//    DerivedData d = new DerivedData();
-//    var networkWritter = new NetworkWriter();
-//    d.Serialize(networkWritter);
 }

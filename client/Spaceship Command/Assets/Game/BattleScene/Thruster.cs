@@ -2,6 +2,15 @@
 using System.Collections;
 using System;
 
+public enum ThrusterType
+{
+    MainLeft,
+    MainRight,
+    Frontal,
+    ControlLeft,
+    ControlRight
+}
+
 public class Thruster : MonoBehaviour 
 {
     //Set through Unity

@@ -15,13 +15,6 @@ public class ThrusterButton : MonoBehaviour
         { ThrusterType.MainRight , KeyCode.D },
     };
 
-    PlayerClient PlayerClient
-    {
-        get
-        {
-            return PlayerClient.Instance;
-        }
-    }
 
     void Update()
     {
@@ -47,11 +40,11 @@ public class ThrusterButton : MonoBehaviour
 
         Debug.Log("PointerDown() " + this.ThrusterType);
 
-        if (this.PlayerClient != null)
-        {
-//            this.PlayerClient.ThrusterActivated(this.ThrusterType);
-            this.PlayerClient.CmdFireThruster(this.ThrusterType);
-        }
+//        if (this.PlayerClient != null)
+//        {
+////            this.PlayerClient.ThrusterActivated(this.ThrusterType);
+//            this.PlayerClient.CmdFireThruster(this.ThrusterType);
+//        }
     }
 
     public void PointerUp()
@@ -60,10 +53,10 @@ public class ThrusterButton : MonoBehaviour
 
         this.GetComponent<Image>().color = Color.white;
 
-        if (this.PlayerClient != null)
-        {
-//            this.PlayerClient.ThrusterDeactivated(this.ThrusterType);
-            this.PlayerClient.CmdStopThruster(this.ThrusterType);
-        }
+//        if (this.PlayerClient != null)
+//        {
+////            this.PlayerClient.ThrusterDeactivated(this.ThrusterType);
+//            this.PlayerClient.CmdStopThruster(this.ThrusterType);
+//        }
     }
 }

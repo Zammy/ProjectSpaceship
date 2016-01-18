@@ -18,11 +18,11 @@ public class InputScript : MonoBehaviour
         {
             if (Input.GetKeyDown(kvp.Value))
             {
-                PlayerClient.Instance.FireThruster(kvp.Key);
+//                Communicator.Instance.FireThruster(kvp.Key);
             }
             else if (Input.GetKeyUp(kvp.Value))
             {
-                PlayerClient.Instance.StopThruster(kvp.Key);
+//                Communicator.Instance.StopThruster(kvp.Key);
             }
         }
     }
