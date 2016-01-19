@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using Networking;
 
 public class ThrusterButton : MonoBehaviour
 {
@@ -14,7 +15,6 @@ public class ThrusterButton : MonoBehaviour
         { ThrusterType.MainLeft , KeyCode.A },
         { ThrusterType.MainRight , KeyCode.D },
     };
-
 
     void Update()
     {
@@ -40,11 +40,7 @@ public class ThrusterButton : MonoBehaviour
 
         Debug.Log("PointerDown() " + this.ThrusterType);
 
-//        if (this.PlayerClient != null)
-//        {
-////            this.PlayerClient.ThrusterActivated(this.ThrusterType);
-//            this.PlayerClient.CmdFireThruster(this.ThrusterType);
-//        }
+        CoreNetwork.Instance.Send( new ThrusterMsg(true, this.ThrusterType) );
     }
 
     public void PointerUp()
@@ -53,10 +49,6 @@ public class ThrusterButton : MonoBehaviour
 
         this.GetComponent<Image>().color = Color.white;
 
-//        if (this.PlayerClient != null)
-//        {
-////            this.PlayerClient.ThrusterDeactivated(this.ThrusterType);
-//            this.PlayerClient.CmdStopThruster(this.ThrusterType);
-//        }
+        CoreNetwork.Instance.Send( new ThrusterMsg(false, this.ThrusterType) );
     }
 }

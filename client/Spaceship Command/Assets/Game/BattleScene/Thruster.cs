@@ -6,7 +6,6 @@ public enum ThrusterType
 {
     MainLeft,
     MainRight,
-    Frontal,
     ControlLeft,
     ControlRight
 }
@@ -38,12 +37,8 @@ public class Thruster : MonoBehaviour
 
             this.isActive = value;
 
-
-//            this.Particles.emission.enabled = value;
-
             if (value)
             {
-//                this.Particles.emission.enabled = value;
                 this.Particles.Play();
             }
             else
@@ -65,7 +60,7 @@ public class Thruster : MonoBehaviour
 	    if (this.isActive )
         {
             var forward = this.transform.up * POWER;
-            this.ApplyForceOn.AddForce(forward); //, this.transform.position);
+            this.ApplyForceOn.AddForce(forward);
         }
 	}
 }

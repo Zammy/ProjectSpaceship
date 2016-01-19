@@ -3,7 +3,7 @@ using UnityEngine.Networking;
 using UnityEngine;
 using System.Collections.Generic;
 
-namespace Network
+namespace Networking
 {
     public static class MessageHandler
     {
@@ -11,11 +11,14 @@ namespace Network
 
         static uint GetMsgIndexFromType(Type type)
         {
+            Debug.LogFormat("GetMsgIndexFromType() for type {0}", type);
             return msgIndexer[type];
         }
 
         static Type GetMsgTypeFromIndex(uint index)
         {
+            Debug.LogFormat("GetMsgTypeFromIndex() for index {0}", index);
+
             foreach(var kvp in msgIndexer)
             {
                 if (kvp.Value == index)
@@ -36,7 +39,7 @@ namespace Network
                 foreach(var type in types)
                 {
                     if (type.IsSubclassOf(typeof(MessageBase)) 
-                        && type.Namespace == "Network")
+                        && type.Namespace == "Networking")
                     {
                         allNetworkMessages.Add(type);
                     }
@@ -50,16 +53,16 @@ namespace Network
             }
         }
 
-        public static byte[] Serialize(MessageBase msg)
+        public static byte[] Serialize(INetMsg msg)
         {
             var networkWriter = new NetworkWriter();
             uint index = GetMsgIndexFromType( msg.GetType() );
             networkWriter.WritePackedUInt32( index );
-            msg.Serialize(networkWriter);
+            ((MessageBase)msg).Serialize(networkWriter);
             return networkWriter.AsArray();
         }
 
-        public static MessageBase Deserialize(byte[] buffer)
+        public static INetMsg Deserialize(byte[] buffer)
         {
             var networkReader = new NetworkReader(buffer);
             uint messageIndex = networkReader.ReadPackedUInt32();
@@ -71,14 +74,31 @@ namespace Network
             }
             var msg = System.Activator.CreateInstance(type) as MessageBase;
             msg.Deserialize(networkReader);
-            return msg;
+            return (INetMsg)msg;
         }
     }
 
-    public class StationSelectMsg : MessageBase
+    public interface INetMsg
     {
-        public Allegiance Allegiance;
-        public Stations Station;
+        Allegiance Allegiance { get; set; }
+    }
+
+    public class StationSelectMsg : MessageBase, INetMsg
+    {
+        public Allegiance Allegiance 
+        {
+            get
+            {
+                return this.allegiance;
+            }
+            set
+            {
+                this.allegiance = value;
+            }
+        }
+
+        public Allegiance allegiance;
+        public Stations station;
 
         public StationSelectMsg()
         {
@@ -86,12 +106,43 @@ namespace Network
 
         public StationSelectMsg( Allegiance allegiance, Stations station)
         {
-            this.Allegiance = allegiance;
-            this.Station = station;
+            this.allegiance = allegiance;
+            this.station = station;
         }
         public override string ToString()
         {
-            return string.Format("[StationSelect] Allegiance={0} Station={1}", this.Allegiance, this.Station);
+            return string.Format("[StationSelect] Allegiance={0} Station={1}", this.allegiance, this.station);
+        }
+    }
+
+    public class StartBattleMsg : MessageBase, INetMsg
+    {
+        public Allegiance Allegiance { get; set; }
+    }
+
+    public class ThrusterMsg : MessageBase, INetMsg
+    {
+        public Allegiance Allegiance
+        {
+            get; set;
+        }
+
+        public bool activate;
+        public ThrusterType type;
+
+        public ThrusterMsg()
+        {   
+        }
+
+        public ThrusterMsg(bool activate , ThrusterType type)
+        {
+            this.activate = activate;
+            this.type = type;
+        }
+
+        public override string ToString()
+        {
+            return string.Format("[ThrusterMsg] Activate={0} Type={1}", activate, type);
         }
     }
 }

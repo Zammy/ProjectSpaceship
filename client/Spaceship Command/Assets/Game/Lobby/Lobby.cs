@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
-using Network;
+using Networking;
 using System;
 
 public class Lobby : MonoBehaviour, IMessageReceiver
@@ -15,11 +15,12 @@ public class Lobby : MonoBehaviour, IMessageReceiver
     public GameObject ClientPage;
     //
 
-    Allegiance allegiance;
+    //todo must find better place
+    public static Allegiance Allegiance;
 
     void Start()
     {
-        this.allegiance = Allegiance.Security;
+        Allegiance = Allegiance.Security;
 
         CoreNetwork.Instance.Client_ConnectedToHosts += this.OnClientConnected;
         CoreNetwork.Instance.Host_ClientDisconnected += this.OnHostClientDisconnected;
@@ -49,7 +50,7 @@ public class Lobby : MonoBehaviour, IMessageReceiver
     {
         CoreNetwork.Instance.HostAsPiratesAndBroadcast();
         this.ShowHostPage(true);
-        this.allegiance = Allegiance.Pirates;
+        Allegiance = Allegiance.Pirates;
     }
 
     public void ConnectAsClient()
@@ -66,6 +67,8 @@ public class Lobby : MonoBehaviour, IMessageReceiver
 
     public Image SecurityShipIndicator;
     public Image PirateShipIndicator;
+
+    public Text IPAddress;
     //
 
     int[] securityStationsTaken;
@@ -73,6 +76,8 @@ public class Lobby : MonoBehaviour, IMessageReceiver
 
     void ShowHostPage(bool isPirate = false)
     {
+        this.IPAddress.text = Network.player.ipAddress;
+
         this.MainPage.SetActive(false);
         this.HostPage.SetActive(true);
 
@@ -93,7 +98,7 @@ public class Lobby : MonoBehaviour, IMessageReceiver
     {
         this.RemoveCurrentSelectionOfClient(connectionId);
 
-        this.TakeStation(stationSelect.Allegiance, stationSelect.Station, connectionId);
+        this.TakeStation(stationSelect.allegiance, stationSelect.station, connectionId);
     }
 
     void RemoveCurrentSelectionOfClient(int connectionId)
@@ -161,6 +166,10 @@ public class Lobby : MonoBehaviour, IMessageReceiver
 
     public void RockOn()
     {
+        CoreNetwork.Instance.StopHostBroadcast();
+
+        CoreNetwork.Instance.Send( new StartBattleMsg() );
+
         SceneManager.LoadScene("BattleScene");
     }
 
@@ -169,48 +178,100 @@ public class Lobby : MonoBehaviour, IMessageReceiver
     #region Client
 
     //Set through Unity
+    public GameObject ConnectingPage;
     public GameObject TryingToConnect;
+    public InputField SecurtyShipIP;
+    public InputField PiratesShipIP;
+
     public GameObject SelectionPage;
     //
 
     Stations stationSelected;
 
+    bool[] connectedToHosts;
+
     void ShowClientPage()
     {
+        this.connectedToHosts = new bool[2];
+
         this.MainPage.SetActive(false);
         this.ClientPage.SetActive(true);
     }
 
-    void OnClientConnected()
+    void OnClientConnected(Allegiance host)
     {
-        this.TryingToConnect.SetActive(false);
-        this.SelectionPage.SetActive(true);
+        this.connectedToHosts[(int)host] = true;
 
-        this.OnStationDropdownChanged(0);
+        if (host == Allegiance.Security)
+        {
+            this.SecurtyShipIP.gameObject.SetActive(false);
+        }
+        else
+        {
+            this.PiratesShipIP.gameObject.SetActive(false);
+        }
+
+        if (connectedToHosts[0] && connectedToHosts[1])
+        {
+            this.ConnectingPage.SetActive(false);
+            this.SelectionPage.SetActive(true);
+
+            this.OnStationDropdownChanged(0);
+        }
+    }
+
+    public void ManualConnect()
+    {
+        if (this.SecurtyShipIP.gameObject.activeSelf)
+        {
+            string secIP = this.SecurtyShipIP.text;
+            CoreNetwork.Instance.SetHost(secIP, Allegiance.Security);
+        }
+
+        if (this.PiratesShipIP.gameObject.activeSelf)
+        {
+            string pirIP = this.PiratesShipIP.text;
+            CoreNetwork.Instance.SetHost(pirIP, Allegiance.Pirates);
+        }
     }
 
     public void OnStationDropdownChanged(int changedTo)
     {
         this.stationSelected = (Stations) changedTo;
-        CoreNetwork.Instance.Send( new StationSelectMsg( this.allegiance,  this.stationSelected ));
+        CoreNetwork.Instance.Send( new StationSelectMsg( Allegiance,  this.stationSelected ));
     }
 
     public void OnAllegianceDropdownChanged(int changedTo)
     {
-        this.allegiance = (Allegiance) changedTo;
-        CoreNetwork.Instance.Send( new StationSelectMsg( this.allegiance,  this.stationSelected ));
+        Allegiance = (Allegiance) changedTo;
+        CoreNetwork.Instance.Send( new StationSelectMsg( Allegiance,  this.stationSelected ));
     }
 
     #endregion
 
     #region IMessageReceiver implementation
 
-    public void ReceiveMsg(int connectionId, MessageBase msg)
+    public void ReceiveMsg(int connectionId, INetMsg msg)
     {
         var stationSelect = msg as StationSelectMsg;
         if (stationSelect != null)
         {
             this.ReceivedStationSelect(connectionId, stationSelect);
+        }
+
+        var startBattleMsg = msg as StartBattleMsg;
+        if (startBattleMsg != null)
+        {
+            switch (this.stationSelected)
+            {
+                case Stations.Pilot:
+                {
+                    SceneManager.LoadScene("PilotStation");
+                    break;
+                }
+                default:
+                    break;
+            }
         }
 
     }

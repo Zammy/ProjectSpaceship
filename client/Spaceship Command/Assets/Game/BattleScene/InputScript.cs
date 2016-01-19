@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Networking;
 
 public class InputScript : MonoBehaviour 
 {
+    public ThrusterController Controller;
+
     private Dictionary<ThrusterType, KeyCode> keymap = new Dictionary<ThrusterType, KeyCode>()
     {
         { ThrusterType.ControlLeft, KeyCode.Q },
@@ -18,12 +21,26 @@ public class InputScript : MonoBehaviour
         {
             if (Input.GetKeyDown(kvp.Value))
             {
-//                Communicator.Instance.FireThruster(kvp.Key);
+                var msg = SpawnMsg();
+                msg.activate = true;
+                msg.type = kvp.Key;
+                Controller.ReceiveMsg(42, msg );
             }
             else if (Input.GetKeyUp(kvp.Value))
             {
-//                Communicator.Instance.StopThruster(kvp.Key);
+                var msg = SpawnMsg();
+                msg.activate = false;
+                msg.type = kvp.Key;
+                Controller.ReceiveMsg(42, msg );            
             }
         }
     }
+
+    ThrusterMsg SpawnMsg()
+    {
+        var msg = new ThrusterMsg();
+        msg.Allegiance = Allegiance.Security;
+        return msg;
+    }
+
 }

@@ -6,11 +6,11 @@ using System.IO;
 using System;
 using System.Collections.Generic;
 
-namespace Network
+namespace Networking
 {
     public interface IMessageReceiver
     {
-        void ReceiveMsg(int connectionId, MessageBase msg);
+        void ReceiveMsg(int connectionId, INetMsg msg);
     }
 
     public class CoreNetwork : MonoBehaviour 
@@ -20,12 +20,13 @@ namespace Network
         public ExtendedNetworkDiscovery NetworkDiscoveryPirates;
         //
 
-        public event Action Client_ConnectedToHosts;
+        public event Action<Allegiance> Client_ConnectedToHosts;
         public event Action<int> Host_ClientConnected;
         public event Action<int> Host_ClientDisconnected;
 
         string[] hosts = new string[2];
         const int HOSTPORT = 16661;
+        Dictionary<int, int> connectionIdToHostIndex;
 
         List<IMessageReceiver> receivers = new List<IMessageReceiver>();
 
@@ -102,11 +103,17 @@ namespace Network
            this.receivers.Remove(msgReceiver);
         }
 
-        public void Send(MessageBase msg)
+        public void Send(INetMsg msg)
         {
             byte[] data = MessageHandler.Serialize(msg);
 
             this.SendToAll( data );
+        }
+
+        public void SetHost(string ip, Allegiance allegiance)
+        {
+            this.hosts[(int)allegiance] = ip;
+            this.Connect((int)allegiance);
         }
 
         void OnReceivedBroadcastFromSecurity(string fromAddress, string _)
@@ -136,22 +143,66 @@ namespace Network
             }
         }
 
+        bool isHost;
 
         ConnectionConfig connectionConfig;
         int reliableChannelId;
-        int unreliableChannelId;
 
         int hostId = -1;
         List<int> connectionIds = new List<int>();
-        Dictionary<int, bool> isConnected = new Dictionary<int, bool>();
+        Dictionary<int, bool> isConnected;
+        Dictionary<int, Allegiance> allegiances;
 
         void InitNetwork()
         {
             NetworkTransport.Init();
             ConnectionConfig config = new ConnectionConfig();
             this.reliableChannelId = config.AddChannel(QosType.Reliable);
-            this.unreliableChannelId = config.AddChannel(QosType.Unreliable);
             this.connectionConfig = config;
+        }
+
+        void Host(int port)
+        {
+            this.isHost = true;
+
+            var hostTopology = new HostTopology(connectionConfig, 6);
+            this.hostId = NetworkTransport.AddHost(hostTopology, port);
+
+            this.isConnected = new Dictionary<int, bool>();
+            this.allegiances = new Dictionary<int, Allegiance>();
+
+            Debug.LogFormat("[HOST] Hosting on port {0}", port);
+        }
+
+        void Connect(int index)
+        {
+            if (this.hostId == -1)
+            {
+                var hostTopology = new HostTopology(connectionConfig, 2);
+                this.hostId = NetworkTransport.AddHost(hostTopology);
+
+                this.isConnected = new Dictionary<int, bool>();
+                this.connectionIdToHostIndex = new Dictionary<int, int>();
+            }
+
+            string ipaddress = this.hosts[index];
+            int port = HOSTPORT + index;
+
+            byte error;
+            int connectionId = NetworkTransport.Connect(this.hostId, ipaddress, port, 0, out error);
+            if (connectionId != 0)
+            {
+                this.connectionIds.Add(connectionId);
+                this.connectionIdToHostIndex.Add(connectionId, index);
+                this.isConnected[connectionId] = false;
+            }
+
+            Debug.LogFormat("[CLIENT] Connecting to {0}:{1}", ipaddress, port);
+
+            if ((NetworkError) error != NetworkError.Ok)
+            {
+                Debug.LogErrorFormat("[CLIENT] Could not connect to {0}:{1} because {2}", ipaddress, port, (NetworkError)error);
+            }
         }
 
         const int bufferSize = 1024;
@@ -181,11 +232,12 @@ namespace Network
             switch (recData)
             {
                 case NetworkEventType.ConnectEvent:
+                {
                     if (this.isConnected.ContainsKey(connectionId))
                     {
                         Debug.LogFormat("[CLIENT] Connected connectionId {0}", connectionId);
                         this.isConnected[connectionId] = true;
-                        this.CheckOnlineStatus(); 
+                        this.RaiseClientConnectedToHost(connectionId); 
                     }
                     else
                     {
@@ -197,11 +249,16 @@ namespace Network
                         }
                     }
                     break;
+                }
                 case NetworkEventType.DataEvent:
+                {
                     var msg = MessageHandler.Deserialize(buffer);
+                    this.SetAllegiance(msg, connectionId);
                     this.PushMessage(connectionId, msg);
                     break;
+                }
                 case NetworkEventType.DisconnectEvent:
+                {
                     if (this.isConnected.ContainsKey(connectionId))
                     {
                         Debug.LogFormat("[CLIENT] Disconnected connectionId {0}", connectionId);
@@ -212,41 +269,7 @@ namespace Network
                         this.ClientDisconnected(connectionId);
                     }
                     break;
-            }
-        }
-
-        void Host(int port)
-        {
-            var hostTopology = new HostTopology(connectionConfig, 6);
-            this.hostId = NetworkTransport.AddHost(hostTopology, port);
-
-            Debug.LogFormat("[HOST] Hosting on port {0}", port);
-        }
-
-        void Connect(int index)
-        {
-            if (this.hostId == -1)
-            {
-                var hostTopology = new HostTopology(connectionConfig, 2);
-                this.hostId = NetworkTransport.AddHost(hostTopology);
-            }
-
-            string ipaddress = this.hosts[index];
-            int port = HOSTPORT + index;
-
-            byte error;
-            int connectionId = NetworkTransport.Connect(this.hostId, ipaddress, port, 0, out error);
-            if (connectionId != 0)
-            {
-                this.connectionIds.Add(connectionId);
-                this.isConnected[connectionId] = false;
-            }
-
-            Debug.LogFormat("[CLIENT] Connecting to {0}:{1}", ipaddress, port);
-
-            if ((NetworkError) error != NetworkError.Ok)
-            {
-                Debug.LogErrorFormat("[CLIENT] Could not connect to {0}:{1} because {2}", ipaddress, port, (NetworkError)error);
+                }
             }
         }
 
@@ -263,32 +286,22 @@ namespace Network
                 }
             }
         }
-     
-        void CheckOnlineStatus()
+
+        void PushMessage(int connectionId, INetMsg msg)
         {
-            foreach (var connected in this.isConnected.Values)
-            {
-                if (!connected)
-                    return;
-            }
-
-            Debug.Log("[CLIENT] Client is online");
-
-            if (this.Client_ConnectedToHosts != null)
-            {
-                this.Client_ConnectedToHosts();
-            }
-        }
-
-        void PushMessage(int connectionId, MessageBase msg)
-        {
-            if (msg == null)
-                return;
-
             Debug.LogFormat("Received message from {0} , {1}", connectionId, msg);
             foreach(var receiver in this.receivers)
             {
                 receiver.ReceiveMsg(connectionId, msg);
+            }
+        }
+
+        void RaiseClientConnectedToHost(int connectionId)
+        {
+            int hostIndex = this.connectionIdToHostIndex[connectionId];
+            if (this.Client_ConnectedToHosts != null)
+            {
+                this.Client_ConnectedToHosts((Allegiance) hostIndex);
             }
         }
 
@@ -300,6 +313,21 @@ namespace Network
             {
                 this.Host_ClientDisconnected(connectionId);
             }
+        }
+
+        void SetAllegiance(INetMsg msg, int connectionId)
+        {
+            if (!this.isHost)
+                return;
+
+            if (msg is StationSelectMsg)
+            {
+                this.allegiances[connectionId] = msg.Allegiance;
+            }
+            else
+            {
+                msg.Allegiance = this.allegiances[connectionId];
+            }       
         }
     }
 
