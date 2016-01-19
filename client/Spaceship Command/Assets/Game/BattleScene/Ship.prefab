@@ -87,6 +87,8 @@ GameObject:
   - 4: {fileID: 416658}
   - 114: {fileID: 11421416}
   - 114: {fileID: 11491540}
+  - 114: {fileID: 11415578}
+  - 114: {fileID: 11496894}
   m_Layer: 0
   m_Name: Ship
   m_TagString: Untagged
@@ -254,7 +256,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 136784}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -23.1, z: 0}
+  m_LocalPosition: {x: -19.3, y: -13.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 440132}
@@ -826,6 +828,22 @@ MonoBehaviour:
     TransformParentChanges: []
   ParentPrefabGUID: 28ec447399b924af1a7f7ed3a9404b2a
   PrefabGUID: 203a765a6d7f54b61b1a36ce5367840a
+--- !u!114 &11415578
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 136784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 923d850650e794ea0a8d11edf661c8d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Thrusters:
+  - {fileID: 11489188}
+  - {fileID: 11464954}
+  - {fileID: 11498158}
+  - {fileID: 11476158}
 --- !u!114 &11417946
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -845,9 +863,13 @@ MonoBehaviour:
     Links: []
   Modifications:
     Modificated: []
-    NonPrefabObjects: []
+    NonPrefabObjects:
+    - child: {fileID: 476376}
+      parent: {fileID: 471878}
+    - child: {fileID: 471878}
+      parent: {fileID: 469072}
     NonPrefabComponents: []
-    RemovedObjects: 
+    RemovedObjects: eaddc6301c182738d66d83dbf4e593b2fdf70e02f282f9fbc71240e1895be6f104f5da905787ec4daa39ec22f4a63a04e598dbeca909789e92a88ddc8e16556721382647fa8940fbf1a06523f22951330dba469580ab8506b0abe40bee8fb7aaaa232e5a36dca0e1fa01685f4a1c686d0c8190f9a2979e0eb83d46ec348985dc054f2c814f4a2dabd0351bdde813d9046dae1ae168e6739dca22b8cb7718e0268e87af5e8ccdad9401de4c2305768c4b47605ef448857ba228ef6a2a5041600062cf12493bf1757e7a7830925ac0bbdc5524bb1c48e6b0b7bf707344d5c372ad13fb24991bac28adc29a582eaa60e5b17243631ca954feff4b7f718a163966b2bf6b3e638ad5259d0a430ce9bb9bce3542979665
     TransformParentChanges: []
   ParentPrefabGUID: 
   PrefabGUID: 23d6337f40f4d49b58a2e1bd81017e06
@@ -1026,18 +1048,34 @@ MonoBehaviour:
       InstanceTarget: {fileID: 11417946}
     - LIIF: -385072374
       InstanceTarget: {fileID: 11436578}
+    - LIIF: 902732731
+      InstanceTarget: {fileID: 11496894}
+    - LIIF: 1704367938
+      InstanceTarget: {fileID: 11415578}
   Modifications:
     Modificated:
     - Object: {fileID: 416658}
       ObjeckLink: -2086093484
       PropertyPath: m_RootOrder
       Mode: 0
-    - Object: {fileID: 11491540}
-      ObjeckLink: 476267378
+    - Object: {fileID: 11415578}
+      ObjeckLink: 1704367938
+      PropertyPath: Thrusters.Array.size
+      Mode: 0
+    - Object: {fileID: 11415578}
+      ObjeckLink: 1704367938
+      PropertyPath: Thrusters.Array.data[0]
+      Mode: 0
+    - Object: {fileID: 11415578}
+      ObjeckLink: 1704367938
+      PropertyPath: Thrusters.Array.data[1]
+      Mode: 0
+    - Object: {fileID: 11415578}
+      ObjeckLink: 1704367938
       PropertyPath: Thrusters.Array.data[2]
       Mode: 0
-    - Object: {fileID: 11491540}
-      ObjeckLink: 476267378
+    - Object: {fileID: 11415578}
+      ObjeckLink: 1704367938
       PropertyPath: Thrusters.Array.data[3]
       Mode: 0
     NonPrefabObjects: []
@@ -1065,9 +1103,11 @@ MonoBehaviour:
     Links: []
   Modifications:
     Modificated: []
-    NonPrefabObjects: []
+    NonPrefabObjects:
+    - child: {fileID: 476376}
+      parent: {fileID: 471878}
     NonPrefabComponents: []
-    RemovedObjects: 
+    RemovedObjects: eaddc6301c182738d66d83dbf4e593b2fdf70e02f282f9fbc71240e1895be6f104f5da905787ec4daa39ec22f4a63a04e598dbeca909789e92a88ddc8e16556721382647fa8940fbf1a06523f22951330dba469580ab8506b0abe40bee8fb7aaaa232e5a36dca0e1fa01685f4a1c686d0c8190f9a2979e0eb83d46ec348985dc054f2c814f4a2dabd0351bdde813d9046dae1ae168e6739dca22b8cb7718e0268e87af5e8ccdad9401de4c2305768c4b47605ef448857ba228ef6a2a5041600062cf12493bf1757e7a7830925ac0bbdc5524bb1c48e6b0b7bf707344d5c372ad13fb24991bac28adc29a582eaa60e5b17243631ca954feff4b7f718a163966b2bf6b3e638ad5259d0a430ce9bb9bce3542979665
     TransformParentChanges: []
   ParentPrefabGUID: 
   PrefabGUID: 23d6337f40f4d49b58a2e1bd81017e06
@@ -1208,13 +1248,13 @@ MonoBehaviour:
     - child: {fileID: 471878}
       parent: {fileID: 469072}
     NonPrefabComponents:
-    - child: {fileID: 25585694}
-      parent: {fileID: 179454}
-    - child: {fileID: 25523404}
+    - child: {fileID: 25512064}
       parent: {fileID: 179454}
     - child: {fileID: 25503126}
       parent: {fileID: 179454}
-    - child: {fileID: 25512064}
+    - child: {fileID: 25523404}
+      parent: {fileID: 179454}
+    - child: {fileID: 25585694}
       parent: {fileID: 179454}
     RemovedObjects: 
     TransformParentChanges: []
@@ -1401,6 +1441,18 @@ MonoBehaviour:
     TransformParentChanges: []
   ParentPrefabGUID: 28ec447399b924af1a7f7ed3a9404b2a
   PrefabGUID: 203a765a6d7f54b61b1a36ce5367840a
+--- !u!114 &11496894
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 136784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c7baec69b5ef4edf8613e1216ec8745, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Allegiance: 0
 --- !u!114 &11498158
 MonoBehaviour:
   m_ObjectHideFlags: 1

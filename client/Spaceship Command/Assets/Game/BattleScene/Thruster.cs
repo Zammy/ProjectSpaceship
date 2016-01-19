@@ -10,7 +10,7 @@ public enum ThrusterType
     ControlRight
 }
 
-public class Thruster : MonoBehaviour 
+public class Thruster : MonoBehaviour, IEnergyConsumator
 {
     //Set through Unity
     public float POWER;
@@ -21,6 +21,14 @@ public class Thruster : MonoBehaviour
 
     public ParticleSystem Particles;
     //
+    
+    public double Consumption
+    {
+        get
+        {
+            return this.IsActive ? 1 : 0 * POWER;
+        }
+    }
 
     private bool isActive = false;
     public bool IsActive
