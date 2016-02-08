@@ -1,3 +1,7 @@
+using System;
+using System.IO;
+using System.Text;
+using PrefabEvolution.Migration;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +28,9 @@ namespace PrefabEvolution
 					instance = Resources.FindObjectsOfTypeAll<PECache>().FirstOrDefault();
 
 					if (instance == null)
+					{
 						instance = CreateInstance<PECache>();
+					}
 
 					SetDontSave();
 				}
@@ -35,75 +41,63 @@ namespace PrefabEvolution
 
 		static void SetDontSave()
 		{
-			DontDestroyOnLoad(instance);
-			instance.hideFlags = HideFlags.DontSave;
-		}
-
-		static private bool PathFilter(string path)
-		{
-			return path.EndsWith(".png") ||
-			path.EndsWith(".psd") ||
-			path.EndsWith(".jpg") ||
-			path.EndsWith(".jpeg") ||
-			path.EndsWith(".tif") ||
-			path.EndsWith(".exr") ||
-			path.EndsWith(".cs") ||
-			path.EndsWith(".asset");
+			instance.hideFlags = HideFlags.DontSave | HideFlags.DontUnloadUnusedAsset;
 		}
 
 		public void CheckPrefab(params string[] paths)
 		{
-			paths = paths.Where(p => !PathFilter(p)).ToArray();
 			var i = 0;
-			var t = paths.Length;
-			foreach (var path in paths)
+			var prefabsPaths = paths.Where(p => p.EndsWith(".prefab")).ToArray();
+
+			foreach (var path in prefabsPaths)
 			{
-				var importer = AssetImporter.GetAtPath(path);
-				var p = (float)i++ / (float)t;
+				if (prefabsPaths.Length > 5 && i++ % 50 == 0)
+					EditorUtility.DisplayProgressBar("Checking prefab dependencies", path, i / (float)prefabsPaths.Length);
 
-				if (importer is ModelImporter)
-				{
-					if (!modelPathToApply.Contains(path))
-						continue;
+				if (prefabsPaths.Length > 5 && !canPrefabContainsNestedInstances(path))
+					continue;
 
-					var asset = PEUtils.GetAssetByPath<GameObject>(path);
-					if (asset == null)
-						continue;
+				CheckPrefab(AssetDatabase.AssetPathToGUID(path), PEUtils.GetAssetByPath<GameObject>(path));
 
-					var prefabScript = asset.GetComponent<PEPrefabScript>();
-					if (prefabScript == null)
-						continue;
+				if (i % 100 != 0)
+					continue;
 
-					modelPathToApply.Remove(path);
-
-					if (PEPrefs.DebugLevel > 0)
-						Debug.Log("Applying " + path);
-					prefabScript.Prefab = asset;
-					prefabScript.BuildLinks();
-					EditorApplication.delayCall += () => PEUtils.DoApply(prefabScript);
-				}
-				else
-				{
-					if (!path.EndsWith(".prefab"))
-						continue;
-
-					CheckPrefab(AssetDatabase.AssetPathToGUID(path), PEUtils.GetAssetByPath<GameObject>(path));
-
-					if (paths.Length > 10 && i % 50 == 0)
-						EditorUtility.DisplayProgressBar("Checking prefab dependencies", path, p);
-
-					if (i%100 == 0)
-					{
-					#if UNITY_5
-						EditorUtility.UnloadUnusedAssetsImmediate();
-					#else
-						EditorUtility.UnloadUnusedAssets();
-					#endif
-					}
-				}
+#if UNITY_5
+				EditorUtility.UnloadUnusedAssetsImmediate();
+#else
+				EditorUtility.UnloadUnusedAssets();
+#endif
 			}
-			if (paths.Length > 10)
-				EditorUtility.ClearProgressBar();
+
+			foreach (var path in paths.Where(p => !p.EndsWith(".prefab")))
+			{
+
+				if (!modelPathToApply.Contains(path))
+					continue;
+
+				var importer = AssetImporter.GetAtPath(path);
+
+				if (!(importer is ModelImporter))
+					continue;
+
+				var asset = PEUtils.GetAssetByPath<GameObject>(path);
+				if (asset == null)
+					continue;
+
+				var prefabScript = asset.GetComponent<PEPrefabScript>();
+				if (prefabScript == null)
+					continue;
+
+				modelPathToApply.Remove(path);
+
+				if (PEPrefs.DebugLevel > 0)
+					Debug.Log("Applying " + path);
+				prefabScript.Prefab = asset;
+				prefabScript.BuildLinks();
+				EditorApplication.delayCall += () => PEUtils.DoApply(prefabScript);
+			}
+
+			EditorUtility.ClearProgressBar();
 		}
 
 		void CheckAllAssets()
@@ -114,7 +108,20 @@ namespace PrefabEvolution
 			allAssetsLoaded = true;
 			this.whereCache.list.Clear();
 			this.whatCache.list.Clear();
+			var startTime = DateTime.Now;
 			CheckPrefab(AssetDatabase.GetAllAssetPaths());
+			Debug.Log("CheckTime: " + (DateTime.Now - startTime).TotalMilliseconds);
+		}
+
+		static public void ForceCheckAllAssets()
+		{
+			AssetDatabase.GetAllAssetPaths().Foreach(p =>
+			{
+				if (p.EndsWith(".prefab"))
+					setContainsNestedInstances(AssetDatabase.AssetPathToGUID(p), true);
+			});
+			Instance.allAssetsLoaded = false;
+			Instance.CheckAllAssets();
 		}
 
 		private List<string> this[string guid]
@@ -147,7 +154,7 @@ namespace PrefabEvolution
 				return;
 			}
 
-			var nestedInstances = PEUtils.GetNestedInstances(prefab);
+			var nestedInstances = PEUtils.GetNestedInstances(prefab).ToArray();
 
 			foreach (var e in whatCache[guid])
 			{
@@ -165,6 +172,68 @@ namespace PrefabEvolution
 			{
 				if (instance.PrefabGUID != guid)
 					Add(instance.PrefabGUID, guid);
+			}
+			setContainsNestedInstances(guid, nestedInstances.Length > 0 || (rootInstance && !string.IsNullOrEmpty(rootInstance.ParentPrefabGUID)));
+		}
+
+		static string getMetaInfo(string path)
+		{
+			path = path + ".meta";
+			if (!File.Exists(path))
+				return "";
+			return FileUtility.ReadAllText(path, Encoding.UTF8);
+		}
+
+		static string getMetaUserData(string meta)
+		{
+			var prefix = "  userData:";
+			var indexOfUserData = meta.LastIndexOf(prefix);
+			var indexOfEOL = meta.IndexOf("\n", indexOfUserData);
+			if (indexOfEOL == -1)
+				indexOfEOL = meta.Length - 1;
+			var start = indexOfUserData + prefix.Length;
+			var length = indexOfEOL - 1 - start;
+			return meta.Substring(start, length).Trim();
+		}
+
+		private const string HaveConst = "HaveNested_true";
+		private const string DontHaveConst = "HaveNested_false";
+
+		static void setContainsNestedInstances(string guid, bool state)
+		{
+			try
+			{
+				var path = AssetDatabase.GUIDToAssetPath(guid);
+				var importer = AssetImporter.GetAtPath(path);
+				if (importer == null)
+					return;
+
+				var origData = importer.userData;
+				var data = origData.Replace(":", "_");
+				if (data != string.Empty && data != HaveConst && data != DontHaveConst)
+					return;
+				var newData = state ? HaveConst : DontHaveConst;
+
+				importer.userData = newData;
+			}
+			catch (Exception){}
+		}
+
+		static bool canPrefabContainsNestedInstances(string path)
+		{
+			try
+			{
+				var meta = getMetaInfo(path);
+				if (meta == string.Empty)
+					return true;
+				var data = getMetaUserData(meta).Replace(":", "_");
+				if (data != HaveConst && data != DontHaveConst)
+					return true;
+				return data == HaveConst;
+			}
+			catch (Exception)
+			{
+				return true;
 			}
 		}
 
@@ -186,12 +255,12 @@ namespace PrefabEvolution
 		{
 			static void OnWillCreateAsset(string path)
 			{
-				PECache.Instance.CheckPrefab(path);
+				Instance.CheckPrefab(path);
 			}
 
 			static string[] OnWillSaveAssets(string[] paths)
 			{
-				PECache.Instance.CheckPrefab(paths);
+				Instance.CheckPrefab(paths);
 				return paths;
 			}
 		}
@@ -200,7 +269,7 @@ namespace PrefabEvolution
 		{
 			static public void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
 			{
-				PECache.Instance.CheckPrefab(importedAssets);
+				Instance.CheckPrefab(importedAssets);
 			}
 		}
 
@@ -243,6 +312,7 @@ namespace PrefabEvolution
 			Instance.allAssetsLoaded = false;
 			Instance.CheckAllAssets();
 		}
+
 		#endif
 
 		#endregion
