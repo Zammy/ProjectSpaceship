@@ -8,34 +8,42 @@ using System.Collections.Generic;
 
 namespace Networking
 {
-    public interface IMessageReceiver
-    {
-        void ReceiveMsg(int connectionId, INetMsg msg);
-    }
-
-    public class CoreNetwork : MonoBehaviour 
+    public class CoreNetwork : MonoBehaviour, ICoreNetwork
     {
         //Set through Unity
-        public ExtendedNetworkDiscovery NetworkDiscoverySecurity;
-        public ExtendedNetworkDiscovery NetworkDiscoveryPirates;
+        public ExtendedNetworkDiscovery NetworkDiscovery;
         //
 
-        public event Action<Allegiance> Client_ConnectedToHosts;
+        public event Action Client_ConnectedToHost;
         public event Action<int> Host_ClientConnected;
         public event Action<int> Host_ClientDisconnected;
 
-        string[] hosts = new string[2];
+        string hostIP;
         const int HOSTPORT = 16661;
-        Dictionary<int, int> connectionIdToHostIndex;
 
         List<IMessageReceiver> receivers = new List<IMessageReceiver>();
 
-        public static CoreNetwork Instance;
+        private static CoreNetwork _instance = null;
+        public static ICoreNetwork Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    #if UNITY_EDITOR
+                    return new MockCoreNetwork();
+                    #else
+                    throw new UnityException("CoreNetwork is null!!!!!");
+                    #endif
+                }
+                return _instance;
+            }
+        }
         void Awake()
         {
             DontDestroyOnLoad(this.gameObject) ;
 
-            Instance = this;
+            _instance = this;
 
             MessageHandler.Init();
         }
@@ -43,8 +51,7 @@ namespace Networking
     	// Use this for initialization
     	void Start () 
         {
-            this.NetworkDiscoverySecurity.ReceivedBroadcast += this.OnReceivedBroadcastFromSecurity;
-            this.NetworkDiscoveryPirates.ReceivedBroadcast += this.OnReceivedBroadcastFromPirates;
+            this.NetworkDiscovery.ReceivedBroadcast += this.OnReceivedBroadcast;
 
             this.InitNetwork();
     	}
@@ -54,30 +61,29 @@ namespace Networking
             this.ReceiveNetwork();
         }
 
-        public void HostAsSecurityAndBroadcast()
+        public void HostAndBroadcast()
         {
-            this.NetworkDiscoverySecurity.StartAsServer();
+            this.NetworkDiscovery.StartAsServer();
 
             this.Host(HOSTPORT);
         }
 
-        public void HostAsPiratesAndBroadcast()
+        public void ListenAsClientAndConnectToHost(string ip = null)
         {
-            this.NetworkDiscoveryPirates.StartAsServer(); 
-
-            this.Host(HOSTPORT + 1);
+            if (ip != null)
+            {
+                this.hostIP = ip;
+                this.Connect();
+            }
+            else
+            {
+                this.NetworkDiscovery.StartAsClient();
+            }
         }
 
         public void StopHostBroadcast()
         {
-            this.NetworkDiscoverySecurity.StopBroadcast();
-            this.NetworkDiscoveryPirates.StopBroadcast();
-        }
-
-        public void ListenAsClientAndConnectToHosts()
-        {
-            this.NetworkDiscoverySecurity.StartAsClient();
-            this.NetworkDiscoveryPirates.StartAsClient();
+            this.NetworkDiscovery.StopBroadcast();
         }
 
         public void Subscribe(IMessageReceiver msgReceiver)
@@ -110,37 +116,13 @@ namespace Networking
             this.SendToAll( data );
         }
 
-        public void SetHost(string ip, Allegiance allegiance)
-        {
-            this.hosts[(int)allegiance] = ip;
-            this.Connect((int)allegiance);
-        }
-
-        void OnReceivedBroadcastFromSecurity(string fromAddress, string _)
+        void OnReceivedBroadcast(string fromAddress, string _)
         {
             Debug.Log("OnReceivedBroadcastFromSecurity " + fromAddress);
 
-            this.ReceivedIPAddressOfHostOnIndex(fromAddress, 0);
-
-            this.NetworkDiscoverySecurity.StopBroadcast();
-        }
-
-        void OnReceivedBroadcastFromPirates(string fromAddress, string _)
-        {
-            Debug.Log("OnReceivedBroadcastFromPirates " + fromAddress);
-
-            this.ReceivedIPAddressOfHostOnIndex(fromAddress, 1);
-
-            this.NetworkDiscoveryPirates.StopBroadcast();
-        }
-
-        void ReceivedIPAddressOfHostOnIndex(string ip, int index)
-        {
-            if (hosts[index] == null)
-            {
-                hosts[index] = ip;
-                this.Connect(index);
-            }
+            this.hostIP = fromAddress;
+            this.NetworkDiscovery.StopBroadcast();
+            this.Connect();
         }
 
         bool isHost;
@@ -174,7 +156,7 @@ namespace Networking
             Debug.LogFormat("[HOST] Hosting on port {0}", port);
         }
 
-        void Connect(int index)
+        void Connect()
         {
             if (this.hostId == -1)
             {
@@ -182,18 +164,16 @@ namespace Networking
                 this.hostId = NetworkTransport.AddHost(hostTopology);
 
                 this.isConnected = new Dictionary<int, bool>();
-                this.connectionIdToHostIndex = new Dictionary<int, int>();
             }
 
-            string ipaddress = this.hosts[index];
-            int port = HOSTPORT + index;
+            string ipaddress = this.hostIP;
+            int port = HOSTPORT;
 
             byte error;
             int connectionId = NetworkTransport.Connect(this.hostId, ipaddress, port, 0, out error);
             if (connectionId != 0)
             {
                 this.connectionIds.Add(connectionId);
-                this.connectionIdToHostIndex.Add(connectionId, index);
                 this.isConnected[connectionId] = false;
             }
 
@@ -298,10 +278,9 @@ namespace Networking
 
         void RaiseClientConnectedToHost(int connectionId)
         {
-            int hostIndex = this.connectionIdToHostIndex[connectionId];
-            if (this.Client_ConnectedToHosts != null)
+            if (this.Client_ConnectedToHost != null)
             {
-                this.Client_ConnectedToHosts((Allegiance) hostIndex);
+                this.Client_ConnectedToHost();
             }
         }
 

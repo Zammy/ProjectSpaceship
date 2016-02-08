@@ -7,7 +7,6 @@ using System;
 public interface IEnergyConsumator
 {
     double Consumption { get; }
-    bool IsActive { get; }
 }
 
 public class PowerCore : MonoBehaviour, IMessageReceiver 

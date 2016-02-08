@@ -22,7 +22,7 @@ public class Lobby : MonoBehaviour, IMessageReceiver
     {
         Allegiance = Allegiance.Security;
 
-        CoreNetwork.Instance.Client_ConnectedToHosts += this.OnClientConnected;
+        CoreNetwork.Instance.Client_ConnectedToHost += this.OnClientConnected;
         CoreNetwork.Instance.Host_ClientDisconnected += this.OnHostClientDisconnected;
         CoreNetwork.Instance.Subscribe(this);
     }
@@ -34,28 +34,21 @@ public class Lobby : MonoBehaviour, IMessageReceiver
 
     void OnDestroy()
     {
-        CoreNetwork.Instance.Client_ConnectedToHosts -= this.OnClientConnected;
+        CoreNetwork.Instance.Client_ConnectedToHost -= this.OnClientConnected;
         CoreNetwork.Instance.Host_ClientDisconnected -= this.OnHostClientDisconnected;
 
         CoreNetwork.Instance.Unsubscribe(this);
     }
 
-    public void HostAsSecurity()
+    public void Host()
     {
-        CoreNetwork.Instance.HostAsSecurityAndBroadcast();
+        CoreNetwork.Instance.HostAndBroadcast();
         this.ShowHostPage();
-    }
-
-    public void HostAsPirates()
-    {
-        CoreNetwork.Instance.HostAsPiratesAndBroadcast();
-        this.ShowHostPage(true);
-        Allegiance = Allegiance.Pirates;
     }
 
     public void ConnectAsClient()
     {
-        CoreNetwork.Instance.ListenAsClientAndConnectToHosts();
+        CoreNetwork.Instance.ListenAsClientAndConnectToHost();
         this.ShowClientPage();
     }
 
@@ -65,30 +58,18 @@ public class Lobby : MonoBehaviour, IMessageReceiver
     public Image[] SecurityStationsIndicators;
     public Image[] PiratesStationsIndicatiors;
 
-    public Image SecurityShipIndicator;
-    public Image PirateShipIndicator;
-
     public Text IPAddress;
     //
 
     int[] securityStationsTaken;
     int[] piratesStationsTaken;
 
-    void ShowHostPage(bool isPirate = false)
+    void ShowHostPage()
     {
         this.IPAddress.text = Network.player.ipAddress;
 
         this.MainPage.SetActive(false);
         this.HostPage.SetActive(true);
-
-        if (isPirate)
-        {
-            this.PirateShipIndicator.color = Color.green;
-        }
-        else
-        {
-            this.SecurityShipIndicator.color = Color.green;
-        }
 
         this.securityStationsTaken = new int[] { -1, -1, -1};
         this.piratesStationsTaken = new int[] { -1, -1, -1};
@@ -180,59 +161,37 @@ public class Lobby : MonoBehaviour, IMessageReceiver
     //Set through Unity
     public GameObject ConnectingPage;
     public GameObject TryingToConnect;
-    public InputField SecurtyShipIP;
-    public InputField PiratesShipIP;
+    public InputField HostIP;
 
     public GameObject SelectionPage;
     //
 
     Stations stationSelected;
 
-    bool[] connectedToHosts;
+//    bool connectedToHost = false;
 
     void ShowClientPage()
     {
-        this.connectedToHosts = new bool[2];
-
         this.MainPage.SetActive(false);
         this.ClientPage.SetActive(true);
     }
 
-    void OnClientConnected(Allegiance host)
+    void OnClientConnected()
     {
-        this.connectedToHosts[(int)host] = true;
+//        this.connectedToHost = true;
 
-        if (host == Allegiance.Security)
-        {
-            this.SecurtyShipIP.gameObject.SetActive(false);
-        }
-        else
-        {
-            this.PiratesShipIP.gameObject.SetActive(false);
-        }
+        this.HostIP.gameObject.SetActive(false);
+  
+        this.ConnectingPage.SetActive(false);
+        this.SelectionPage.SetActive(true);
 
-        if (connectedToHosts[0] && connectedToHosts[1])
-        {
-            this.ConnectingPage.SetActive(false);
-            this.SelectionPage.SetActive(true);
-
-            this.OnStationDropdownChanged(0);
-        }
+        this.OnStationDropdownChanged(0);
     }
 
     public void ManualConnect()
     {
-        if (this.SecurtyShipIP.gameObject.activeSelf)
-        {
-            string secIP = this.SecurtyShipIP.text;
-            CoreNetwork.Instance.SetHost(secIP, Allegiance.Security);
-        }
-
-        if (this.PiratesShipIP.gameObject.activeSelf)
-        {
-            string pirIP = this.PiratesShipIP.text;
-            CoreNetwork.Instance.SetHost(pirIP, Allegiance.Pirates);
-        }
+        string ip = this.HostIP.text;
+        CoreNetwork.Instance.ListenAsClientAndConnectToHost(ip);
     }
 
     public void OnStationDropdownChanged(int changedTo)

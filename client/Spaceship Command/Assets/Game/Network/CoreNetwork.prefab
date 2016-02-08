@@ -1,22 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &151092
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 436562}
-  - 114: {fileID: 11491534}
-  - 114: {fileID: 11416282}
-  m_Layer: 0
-  m_Name: NetworkDiscoveryPirates
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &185092
 GameObject:
   m_ObjectHideFlags: 0
@@ -28,7 +11,7 @@ GameObject:
   - 114: {fileID: 11435478}
   - 114: {fileID: 11483932}
   m_Layer: 0
-  m_Name: NetworkDiscoverySecurity
+  m_Name: NetworkDiscovery
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -51,18 +34,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &436562
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 151092}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 472008}
-  m_RootOrder: 1
 --- !u!4 &472008
 Transform:
   m_ObjectHideFlags: 1
@@ -74,7 +45,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 477256}
-  - {fileID: 436562}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &477256
@@ -89,31 +59,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 472008}
   m_RootOrder: 0
---- !u!114 &11416282
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 151092}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46a02d0f612a241b293c0da4f82b712c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Properties:
-    Properties: []
-    Groups: []
-    Hidden: 
-  Links:
-    Links: []
-  Modifications:
-    Modificated: []
-    NonPrefabObjects: []
-    NonPrefabComponents: []
-    RemovedObjects: 
-    TransformParentChanges: []
-  ParentPrefabGUID: 
-  PrefabGUID: 74929c8fe7fbf4435bc3a4a9e59e73f7
 --- !u!114 &11435478
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -131,13 +76,13 @@ MonoBehaviour:
   m_BroadcastSubVersion: 1
   m_BroadcastInterval: 1000
   m_UseNetworkManager: 0
-  m_BroadcastData: spaceshipcommand security
+  m_BroadcastData: spaceshipcommand
   m_ShowGUI: 0
   m_OffsetX: 10
   m_OffsetY: 10
 --- !u!114 &11450896
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 33
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 195404}
@@ -160,12 +105,6 @@ MonoBehaviour:
       InstanceTarget: {fileID: 11435478}
     - LIIF: 1780753231
       InstanceTarget: {fileID: 185092}
-    - LIIF: -1459663990
-      InstanceTarget: {fileID: 436562}
-    - LIIF: 1755274458
-      InstanceTarget: {fileID: 11491534}
-    - LIIF: -515311064
-      InstanceTarget: {fileID: 151092}
     - LIIF: -955973473
       InstanceTarget: {fileID: 11450948}
     - LIIF: 261702855
@@ -174,13 +113,23 @@ MonoBehaviour:
       InstanceTarget: {fileID: 195404}
     - LIIF: 1476754562
       InstanceTarget: {fileID: 11483932}
-    - LIIF: -507022976
-      InstanceTarget: {fileID: 11416282}
   Modifications:
-    Modificated: []
+    Modificated:
+    - Object: {fileID: 11435478}
+      ObjeckLink: 4972463
+      PropertyPath: m_BroadcastData
+      Mode: 0
+    - Object: {fileID: 185092}
+      ObjeckLink: 1780753231
+      PropertyPath: m_Name
+      Mode: 0
+    - Object: {fileID: 11450948}
+      ObjeckLink: -955973473
+      PropertyPath: NetworkDiscovery
+      Mode: 0
     NonPrefabObjects: []
     NonPrefabComponents: []
-    RemovedObjects: 
+    RemovedObjects: da5c9f6828fa48e18071c7e1
     TransformParentChanges: []
   ParentPrefabGUID: 
   PrefabGUID: 74929c8fe7fbf4435bc3a4a9e59e73f7
@@ -195,11 +144,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e860e6b732704a058331babe938b76f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NetworkDiscoverySecurity: {fileID: 11435478}
-  NetworkDiscoveryPirates: {fileID: 11491534}
+  NetworkDiscovery: {fileID: 11435478}
 --- !u!114 &11483932
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 33
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 185092}
@@ -216,33 +164,14 @@ MonoBehaviour:
     Links: []
   Modifications:
     Modificated: []
-    NonPrefabObjects: []
+    NonPrefabObjects:
+    - child: {fileID: 477256}
+      parent: {fileID: 472008}
     NonPrefabComponents: []
-    RemovedObjects: 
+    RemovedObjects: 8d0b5992afdf4b004f23246ada5c9f6828fa48e19f0005c7aba6f4b1827c05588071c7e1
     TransformParentChanges: []
   ParentPrefabGUID: 
   PrefabGUID: 74929c8fe7fbf4435bc3a4a9e59e73f7
---- !u!114 &11491534
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 151092}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c30c73e4dc0645608c473cbea702211, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_BroadcastPort: 47778
-  m_BroadcastKey: 777
-  m_BroadcastVersion: 1
-  m_BroadcastSubVersion: 1
-  m_BroadcastInterval: 1000
-  m_UseNetworkManager: 0
-  m_BroadcastData: spaceshipcommand pirates
-  m_ShowGUI: 0
-  m_OffsetX: 10
-  m_OffsetY: 10
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
