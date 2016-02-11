@@ -15,12 +15,9 @@ public class Lobby : MonoBehaviour, IMessageReceiver
     public GameObject ClientPage;
     //
 
-    //todo must find better place
-    public static Allegiance Allegiance;
-
     void Start()
     {
-        Allegiance = Allegiance.Security;
+        Global.Allegiance = Allegiance.Security;
 
         CoreNetwork.Instance.Client_ConnectedToHost += this.OnClientConnected;
         CoreNetwork.Instance.Host_ClientDisconnected += this.OnHostClientDisconnected;
@@ -180,6 +177,8 @@ public class Lobby : MonoBehaviour, IMessageReceiver
     {
 //        this.connectedToHost = true;
 
+        Debug.Log("Lobby.OnClientConnected()");
+
         this.HostIP.gameObject.SetActive(false);
   
         this.ConnectingPage.SetActive(false);
@@ -197,13 +196,13 @@ public class Lobby : MonoBehaviour, IMessageReceiver
     public void OnStationDropdownChanged(int changedTo)
     {
         this.stationSelected = (Stations) changedTo;
-        CoreNetwork.Instance.Send( new StationSelectMsg( Allegiance,  this.stationSelected ));
+        CoreNetwork.Instance.Send( new StationSelectMsg( Global.Allegiance,  this.stationSelected ));
     }
 
     public void OnAllegianceDropdownChanged(int changedTo)
     {
-        Allegiance = (Allegiance) changedTo;
-        CoreNetwork.Instance.Send( new StationSelectMsg( Allegiance,  this.stationSelected ));
+        Global.Allegiance = (Allegiance) changedTo;
+        CoreNetwork.Instance.Send( new StationSelectMsg( Global.Allegiance,  this.stationSelected ));
     }
 
     #endregion
@@ -225,6 +224,7 @@ public class Lobby : MonoBehaviour, IMessageReceiver
             {
                 case Stations.Pilot:
                 {
+                    CoreNetwork.Instance.StopHostBroadcast();
                     SceneManager.LoadScene("PilotStation");
                     break;
                 }

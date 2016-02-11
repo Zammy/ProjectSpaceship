@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using Networking;
 
-public class EnergyConsumtionWidget : MonoBehaviour 
+public class EnergyConsumtionWidget : MonoBehaviour, IMessageReceiver
 {
     //Set through Unity
     public Text Text;
     public Image Image;
+    public Stations Station;
     //
 
     float consumtion = 0f;
@@ -49,8 +51,13 @@ public class EnergyConsumtionWidget : MonoBehaviour
 	// Use this for initialization
 	void Start () 
     {
-	
+	    CoreNetwork.Instance.Subscribe(this);
 	}
+
+    void OnDestroy()
+    {
+        CoreNetwork.Instance.Unsubscribe(this);
+    }
 	
 	// Update is called once per frame
 	void Update () 
@@ -64,4 +71,17 @@ public class EnergyConsumtionWidget : MonoBehaviour
             this.Image.transform.rotation = rotation;
         }
 	}
+
+    #region IMessageReceiver implementation
+
+    public void ReceiveMsg(int connectionId, INetMsg msg)
+    {
+        var energyCons = msg as EnergyConsumtionMsg;
+        if (energyCons != null && energyCons.Station == this.Station)
+        {
+            this.Text.text = string.Format("{0}", energyCons.EnergyConsumed.ToString("F1"));
+        }
+    }
+
+    #endregion
 }

@@ -114,22 +114,10 @@ MonoBehaviour:
     - LIIF: 1476754562
       InstanceTarget: {fileID: 11483932}
   Modifications:
-    Modificated:
-    - Object: {fileID: 11435478}
-      ObjeckLink: 4972463
-      PropertyPath: m_BroadcastData
-      Mode: 0
-    - Object: {fileID: 185092}
-      ObjeckLink: 1780753231
-      PropertyPath: m_Name
-      Mode: 0
-    - Object: {fileID: 11450948}
-      ObjeckLink: -955973473
-      PropertyPath: NetworkDiscovery
-      Mode: 0
+    Modificated: []
     NonPrefabObjects: []
     NonPrefabComponents: []
-    RemovedObjects: da5c9f6828fa48e18071c7e1
+    RemovedObjects: 
     TransformParentChanges: []
   ParentPrefabGUID: 
   PrefabGUID: 74929c8fe7fbf4435bc3a4a9e59e73f7
@@ -168,7 +156,7 @@ MonoBehaviour:
     - child: {fileID: 477256}
       parent: {fileID: 472008}
     NonPrefabComponents: []
-    RemovedObjects: 8d0b5992afdf4b004f23246ada5c9f6828fa48e19f0005c7aba6f4b1827c05588071c7e1
+    RemovedObjects: 8d0b5992afdf4b004f23246a9f0005c7aba6f4b1827c0558
     TransformParentChanges: []
   ParentPrefabGUID: 
   PrefabGUID: 74929c8fe7fbf4435bc3a4a9e59e73f7

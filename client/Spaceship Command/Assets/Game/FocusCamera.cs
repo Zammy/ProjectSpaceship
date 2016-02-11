@@ -5,7 +5,7 @@ public class FocusCamera : MonoBehaviour
 {
     public GameObject[] FocusOn;
 
-    Camera camera;
+    public Camera Camera;
 
     float targetOrtho;
     Vector3 targetPos;
@@ -19,7 +19,7 @@ public class FocusCamera : MonoBehaviour
 	// Use this for initialization
 	void Start () 
     {
-        this.camera = this.GetComponent<Camera>();
+        this.Camera = this.GetComponent<Camera>();
 
         this.CalculateCameraSizeAndPos();
 	}   
@@ -28,10 +28,10 @@ public class FocusCamera : MonoBehaviour
     {
         this.CalculateCameraSizeAndPos();
 
-        if (Mathf.Abs(this.camera.orthographicSize - this.targetOrtho) > 0.1f)
+        if (Mathf.Abs(this.Camera.orthographicSize - this.targetOrtho) > 0.1f)
         {
             float orthoMoveFrame = Time.deltaTime * orthoMovePerSec;
-            float orthoDelta = this.targetOrtho - this.camera.orthographicSize;
+            float orthoDelta = this.targetOrtho - this.Camera.orthographicSize;
             if (Mathf.Abs(orthoDelta) < orthoMoveFrame)
             {
                 orthoMoveFrame = orthoDelta;
@@ -39,11 +39,11 @@ public class FocusCamera : MonoBehaviour
 
             if (orthoDelta > 0)
             {
-                this.camera.orthographicSize += orthoMoveFrame;
+                this.Camera.orthographicSize += orthoMoveFrame;
             }
             else
             {
-                this.camera.orthographicSize -= orthoMoveFrame;
+                this.Camera.orthographicSize -= orthoMoveFrame;
             }
         }
 
@@ -72,15 +72,15 @@ public class FocusCamera : MonoBehaviour
         CalculateMinWidth( FocusOn, out minWidth, out mediumX );
 
         float calcHeight = minHeight + BUFFER;
-        float calcWidth = calcHeight * this.camera.aspect;
+        float calcWidth = calcHeight * this.Camera.aspect;
         if (calcWidth < minWidth)
         {
             calcWidth = minWidth;
-            calcHeight = calcWidth / this.camera.aspect;
+            calcHeight = calcWidth / this.Camera.aspect;
         }
 
         this.targetOrtho = calcHeight / 2;
-        this.targetPos = new Vector3(mediumX, mediumY, this.camera.transform.position.z);
+        this.targetPos = new Vector3(mediumX, mediumY, this.Camera.transform.position.z);
     }
 
     void CalculateMinWidth(GameObject[] gos, out float minWidth, out float mediumX)

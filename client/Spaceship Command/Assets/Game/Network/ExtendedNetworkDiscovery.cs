@@ -8,8 +8,10 @@ public class ExtendedNetworkDiscovery : NetworkDiscovery
 {
     public event Action<string, string> ReceivedBroadcast;
 
-    void Start()
+    void Awake()
     {
+        this.useNetworkManager = false;
+
         this.Initialize();
     }
 

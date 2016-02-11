@@ -36,19 +36,11 @@ public class ThrusterButton : MonoBehaviour
 
     public void PointerDown()
     {
-        this.GetComponent<Image>().color = Color.red;
-
-        Debug.Log("PointerDown() " + this.ThrusterType);
-
         CoreNetwork.Instance.Send( new ThrusterMsg(true, this.ThrusterType) );
     }
 
     public void PointerUp()
     {
-        Debug.Log("PointerUp() "  + this.ThrusterType);
-
-        this.GetComponent<Image>().color = Color.white;
-
         CoreNetwork.Instance.Send( new ThrusterMsg(false, this.ThrusterType) );
     }
 }

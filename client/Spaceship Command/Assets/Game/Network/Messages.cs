@@ -11,13 +11,13 @@ namespace Networking
 
         static uint GetMsgIndexFromType(Type type)
         {
-            Debug.LogFormat("GetMsgIndexFromType() for type {0}", type);
+//            Debug.LogFormat("GetMsgIndexFromType() for type {0}", type);
             return msgIndexer[type];
         }
 
         static Type GetMsgTypeFromIndex(uint index)
         {
-            Debug.LogFormat("GetMsgTypeFromIndex() for index {0}", index);
+//            Debug.LogFormat("GetMsgTypeFromIndex() for index {0}", index);
 
             foreach(var kvp in msgIndexer)
             {
@@ -143,6 +143,27 @@ namespace Networking
         public override string ToString()
         {
             return string.Format("[ThrusterMsg] Activate={0} Type={1}", activate, type);
+        }
+    }
+
+    public class EnergyConsumtionMsg : MessageBase, INetMsg
+    {
+        public Allegiance Allegiance
+        {
+            get; set;
+        }
+
+        public double EnergyConsumed;
+        public Stations Station;
+
+        public EnergyConsumtionMsg()
+        {
+            
+        }
+
+        public override string ToString()
+        {
+            return string.Format("[EnergyConsumtionMsg: Allegiance={0}, EnergyConsumed={1}, Station={2}]", Allegiance, EnergyConsumed, Station);
         }
     }
 }

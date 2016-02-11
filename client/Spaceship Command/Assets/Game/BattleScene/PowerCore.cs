@@ -18,6 +18,10 @@ public class PowerCore : MonoBehaviour, IMessageReceiver
 
     public Thruster[] Thrusters;
 
+    EnergyConsumtionMsg energyConsum;
+
+    float sendConsumtionAt;
+    const float CONSUMTION_SEND_RATE = 1f;
 
 	// Use this for initialization
 	void Start () 
@@ -25,6 +29,14 @@ public class PowerCore : MonoBehaviour, IMessageReceiver
         this.energy = 100;
 
         this.allegiance = this.GetComponent<AllegianceDesignator>().Allegiance;
+        this.energyConsum = new EnergyConsumtionMsg()
+        {
+            Allegiance = allegiance,
+            EnergyConsumed = 0,
+            Station = Stations.Pilot
+        };
+
+        this.sendConsumtionAt = Time.time + CONSUMTION_SEND_RATE;
 
         CoreNetwork.Instance.Subscribe(this);
     }
@@ -35,7 +47,7 @@ public class PowerCore : MonoBehaviour, IMessageReceiver
     }
 	
 	// Update is called once per frame
-	void FixedUpdate () 
+	void FixedUpdate ()
     {
         this.energy += ENERGY_RECHARGE * Time.fixedDeltaTime;
 
@@ -44,11 +56,21 @@ public class PowerCore : MonoBehaviour, IMessageReceiver
         {
             thrustersTotalConsumtion += thruster.Consumption * Time.fixedDeltaTime;
         }
+        this.energyConsum.EnergyConsumed += thrustersTotalConsumtion;
+
+        if (Time.time > this.sendConsumtionAt)
+        {
+            Debug.Log("Sending consumtion");
+            CoreNetwork.Instance.Send(this.energyConsum);
+            this.energyConsum.EnergyConsumed = 0;
+            this.sendConsumtionAt = Time.time + CONSUMTION_SEND_RATE;
+        }
 
         this.energy -= thrustersTotalConsumtion;
 
         if (this.energy < 0)
         {
+            Debug.LogFormat("[{0}] PowerCore empty!", this.allegiance);
             this.energy = 0;
             foreach (var thruster in this.Thrusters)
             {
