@@ -81,7 +81,7 @@ namespace Networking
 
         public void ListenAsClientAndConnectToHost(string ip = null)
         {
-            Debug.Log("ListenAsClientAndConnectToHost " + ip);
+            Debug.Log("[CoreNetwork] ListenAsClientAndConnectToHost " + ip);
             if (this.isConnected)
             {
                 return;
@@ -129,11 +129,11 @@ namespace Networking
         {
             if (this.isHost)
             {
-                Debug.LogFormat("[HOST] Sending to clients : {0}", msg);
+                Debug.LogFormat("[CoreNetwork] [HOST] Sending to clients : {0}", msg);
             }
             else
             {
-                Debug.LogFormat("[Client] Sending to host : {0}", msg);
+                Debug.LogFormat("[CoreNetwork] [Client] Sending to host : {0}", msg);
             }
 
             byte[] data = MessageHandler.Serialize(msg);
@@ -143,7 +143,7 @@ namespace Networking
 
         void OnReceivedBroadcast(string fromAddress, string _)
         {
-            Debug.Log("OnReceivedBroadcast " + fromAddress);
+            Debug.Log("[CoreNetwork] OnReceivedBroadcast " + fromAddress);
             if (this.isConnected)
             {
                 return;
@@ -170,11 +170,11 @@ namespace Networking
 
             if (this.hostId < 0)
             {
-                Debug.LogErrorFormat("[HOST] Could not open socket on {0}", HOSTPORT);
+                Debug.LogErrorFormat("[CoreNetwork] [HOST] Could not open socket on {0}", HOSTPORT);
             }
             else
             {
-                Debug.LogFormat("[HOST] Hosting on port {0}", HOSTPORT);
+                Debug.LogFormat("[CoreNetwork] [HOST] Hosting on port {0}", HOSTPORT);
             }
         }
 
@@ -194,11 +194,11 @@ namespace Networking
             {
                 connectionIds.Add(connectionId);
             }
-            Debug.LogFormat("[CLIENT] Connecting to {0}:{1}  connectionId:{2}", ipaddress, port, connectionId);
+            Debug.LogFormat("[CoreNetwork] [CLIENT] Connecting to {0}:{1}  connectionId:{2}", ipaddress, port, connectionId);
 
             if ((NetworkError) error != NetworkError.Ok || connectionId == 0)
             {
-                Debug.LogErrorFormat("[CLIENT] Could not connect to {0}:{1} because {2}", ipaddress, port, (NetworkError)error);
+                Debug.LogErrorFormat("[CoreNetwork] [CLIENT] Could not connect to {0}:{1} because {2}", ipaddress, port, (NetworkError)error);
             }
         }
 
@@ -224,7 +224,7 @@ namespace Networking
 
                 if ((NetworkError) error != NetworkError.Ok)
                 {
-                    Debug.LogWarningFormat("Error while receiving {0} ", (NetworkError) error);
+                    Debug.LogWarningFormat("[CoreNetwork] Error while receiving {0} ", (NetworkError) error);
                     return;
                 }
 
@@ -239,7 +239,7 @@ namespace Networking
                     {
                         if (this.isHost)
                         {
-                            Debug.LogFormat("[HOST] Connection established to client {0}", connectionId);
+                            Debug.LogFormat("[CoreNetwork] [HOST] Connection established to client {0}", connectionId);
                             connectionIds.Add(connectionId);
                             if (this.Host_ClientConnected != null)
                             {
@@ -248,7 +248,7 @@ namespace Networking
                         }
                         else
                         {
-                            Debug.LogFormat("[CLIENT] Connected connectionId {0}", connectionId);
+                            Debug.LogFormat("[CoreNetwork] [CLIENT] Connected connectionId {0}", connectionId);
                             this.isConnected = true;
                             this.RaiseClientConnectedToHost(connectionId); 
                         }
@@ -268,7 +268,7 @@ namespace Networking
                     {
                         if (this.isHost)
                         {
-                            Debug.LogFormat("[HOST] Client disconnected {0}", connectionId);
+                            Debug.LogFormat("[CoreNetwork] [HOST] Client disconnected {0}", connectionId);
                             connectionIds.Remove(connectionId);
                             if (this.Host_ClientDisconnected != null)
                             {
@@ -277,7 +277,7 @@ namespace Networking
                         }
                         else
                         {
-                            Debug.LogFormat("[CLIENT] Disconnected connectionId {0}", connectionId);
+                            Debug.LogFormat("[CoreNetwork] [CLIENT] Disconnected connectionId {0}", connectionId);
                             this.isConnected = false;
                             //TODO: add client disconnect event
                         }
@@ -297,24 +297,24 @@ namespace Networking
 
                 if ((NetworkError) error != NetworkError.Ok)
                 {
-                    Debug.LogErrorFormat("Failed to send message [{0}]", (NetworkError) error );
+                    Debug.LogErrorFormat("[CoreNetwork] Failed to send message [{0}]", (NetworkError) error );
                 }
             }
         }
 
         void PushMessage(int connectionId, INetMsg msg)
         {
-            Debug.LogFormat("Received message from {0} , {1}, {2}", connectionId, msg, msg.Allegiance);
+            Debug.LogFormat("[CoreNetwork] Received message from {0} , {1}, {2}", connectionId, msg, msg.Allegiance);
 
             if (!this.isHost && msg.Allegiance != Global.Allegiance)
             {
-                Debug.LogFormat("Message ignored, different allegiance");
+                Debug.LogFormat("[CoreNetwork] Message ignored, different allegiance");
                 return;
             }
 
             foreach(var receiver in this.receivers)
             {
-                receiver.ReceiveMsg(connectionId, msg);
+                receiver.ReceiveMsg(msg, connectionId);
             }
         }
 

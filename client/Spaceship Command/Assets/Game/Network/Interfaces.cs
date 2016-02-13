@@ -4,7 +4,7 @@ namespace Networking
 {
     public interface IMessageReceiver
     {
-        void ReceiveMsg(int connectionId, INetMsg msg);
+        void ReceiveMsg(INetMsg msg, int connectionId);
     }
 
     public interface ICoreNetwork 

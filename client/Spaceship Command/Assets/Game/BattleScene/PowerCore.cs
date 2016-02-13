@@ -60,7 +60,6 @@ public class PowerCore : MonoBehaviour, IMessageReceiver
 
         if (Time.time > this.sendConsumtionAt)
         {
-            Debug.Log("Sending consumtion");
             CoreNetwork.Instance.Send(this.energyConsum);
             this.energyConsum.EnergyConsumed = 0;
             this.sendConsumtionAt = Time.time + CONSUMTION_SEND_RATE;
@@ -86,7 +85,7 @@ public class PowerCore : MonoBehaviour, IMessageReceiver
 
     #region IMessageReceiver implementation
 
-    public void ReceiveMsg(int connectionId, INetMsg msg)
+    public void ReceiveMsg(INetMsg msg, int connectionId)
     {
     }
 

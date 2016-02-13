@@ -89,6 +89,7 @@ GameObject:
   - 114: {fileID: 11491540}
   - 114: {fileID: 11415578}
   - 114: {fileID: 11496894}
+  - 114: {fileID: 11433666}
   m_Layer: 0
   m_Name: Ship
   m_TagString: Untagged
@@ -630,7 +631,7 @@ Behaviour:
   m_Enabled: 1
 --- !u!114 &11400866
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 33
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 193314}
@@ -657,7 +658,7 @@ MonoBehaviour:
   PrefabGUID: 203a765a6d7f54b61b1a36ce5367840a
 --- !u!114 &11406254
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 33
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 139386}
@@ -728,7 +729,7 @@ MonoBehaviour:
   PrefabGUID: 203a765a6d7f54b61b1a36ce5367840a
 --- !u!114 &11407568
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 33
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 134626}
@@ -755,7 +756,7 @@ MonoBehaviour:
   PrefabGUID: 203a765a6d7f54b61b1a36ce5367840a
 --- !u!114 &11407838
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 33
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 157176}
@@ -839,6 +840,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 923d850650e794ea0a8d11edf661c8d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  energy: 0
   Thrusters:
   - {fileID: 11489188}
   - {fileID: 11464954}
@@ -846,7 +848,7 @@ MonoBehaviour:
   - {fileID: 11476158}
 --- !u!114 &11417946
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 33
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 122156}
@@ -869,13 +871,13 @@ MonoBehaviour:
     - child: {fileID: 471878}
       parent: {fileID: 469072}
     NonPrefabComponents: []
-    RemovedObjects: eaddc6301c182738d66d83dbf4e593b2fdf70e02f282f9fbc71240e1895be6f104f5da905787ec4daa39ec22f4a63a04e598dbeca909789e92a88ddc8e16556721382647fa8940fbf1a06523f22951330dba469580ab8506b0abe40bee8fb7aaaa232e5a36dca0e1fa01685f4a1c686d0c8190f9a2979e0eb83d46ec348985dc054f2c814f4a2dabd0351bdde813d9046dae1ae168e6739dca22b8cb7718e0268e87af5e8ccdad9401de4c2305768c4b47605ef448857ba228ef6a2a5041600062cf12493bf1757e7a7830925ac0bbdc5524bb1c48e6b0b7bf707344d5c372ad13fb24991bac28adc29a582eaa60e5b17243631ca954feff4b7f718a163966b2bf6b3e638ad5259d0a430ce9bb9bce3542979665
+    RemovedObjects: eaddc6301c182738d66d83dbf4e593b2fdf70e02f282f9fbc71240e1895be6f104f5da905787ec4daa39ec22f4a63a04e598dbeca909789e92a88ddc8e16556721382647fa8940fbf1a06523f22951330dba469580ab8506b0abe40bee8fb7aaaa232e5a36dca0e1fa01685f4a1c686d0c8190f9a2979e0eb83d46ec348985dc054f2c814f4a2dabd0351bdde813d9046dae1ae168e6739dca22b8cb7718e0268e87af5e8ccdad9401de4c2305768c4b47605ef448857ba228ef6a2a5041600062cf12493bf1757e7a7830925ac0bbdc5524bb1c48e6b0b7bf707344d5c372ad13fb24991bac28adc29a582eaa60e5b17243631ca954feff4b7f718a163966b2bf6b3e638ad5259d0a430ce9bb9bce354297966570035284
     TransformParentChanges: []
   ParentPrefabGUID: 
   PrefabGUID: 23d6337f40f4d49b58a2e1bd81017e06
 --- !u!114 &11421416
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 33
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 136784}
@@ -1052,31 +1054,17 @@ MonoBehaviour:
       InstanceTarget: {fileID: 11496894}
     - LIIF: 1704367938
       InstanceTarget: {fileID: 11415578}
+    - LIIF: -2074999952
+      InstanceTarget: {fileID: 11433666}
   Modifications:
     Modificated:
     - Object: {fileID: 416658}
       ObjeckLink: -2086093484
       PropertyPath: m_RootOrder
       Mode: 0
-    - Object: {fileID: 11415578}
-      ObjeckLink: 1704367938
-      PropertyPath: Thrusters.Array.size
-      Mode: 0
-    - Object: {fileID: 11415578}
-      ObjeckLink: 1704367938
-      PropertyPath: Thrusters.Array.data[0]
-      Mode: 0
-    - Object: {fileID: 11415578}
-      ObjeckLink: 1704367938
-      PropertyPath: Thrusters.Array.data[1]
-      Mode: 0
-    - Object: {fileID: 11415578}
-      ObjeckLink: 1704367938
-      PropertyPath: Thrusters.Array.data[2]
-      Mode: 0
-    - Object: {fileID: 11415578}
-      ObjeckLink: 1704367938
-      PropertyPath: Thrusters.Array.data[3]
+    - Object: {fileID: 11433666}
+      ObjeckLink: -2074999952
+      PropertyPath: ShipTransform
       Mode: 0
     NonPrefabObjects: []
     NonPrefabComponents: []
@@ -1084,9 +1072,21 @@ MonoBehaviour:
     TransformParentChanges: []
   ParentPrefabGUID: 
   PrefabGUID: 23d6337f40f4d49b58a2e1bd81017e06
---- !u!114 &11436578
+--- !u!114 &11433666
 MonoBehaviour:
   m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 136784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d07b05debeca416c9a40f86011ad49e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShipTransform: {fileID: 469072}
+--- !u!114 &11436578
+MonoBehaviour:
+  m_ObjectHideFlags: 33
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 199406}
@@ -1107,13 +1107,13 @@ MonoBehaviour:
     - child: {fileID: 476376}
       parent: {fileID: 471878}
     NonPrefabComponents: []
-    RemovedObjects: eaddc6301c182738d66d83dbf4e593b2fdf70e02f282f9fbc71240e1895be6f104f5da905787ec4daa39ec22f4a63a04e598dbeca909789e92a88ddc8e16556721382647fa8940fbf1a06523f22951330dba469580ab8506b0abe40bee8fb7aaaa232e5a36dca0e1fa01685f4a1c686d0c8190f9a2979e0eb83d46ec348985dc054f2c814f4a2dabd0351bdde813d9046dae1ae168e6739dca22b8cb7718e0268e87af5e8ccdad9401de4c2305768c4b47605ef448857ba228ef6a2a5041600062cf12493bf1757e7a7830925ac0bbdc5524bb1c48e6b0b7bf707344d5c372ad13fb24991bac28adc29a582eaa60e5b17243631ca954feff4b7f718a163966b2bf6b3e638ad5259d0a430ce9bb9bce3542979665
+    RemovedObjects: eaddc6301c182738d66d83dbf4e593b2fdf70e02f282f9fbc71240e1895be6f104f5da905787ec4daa39ec22f4a63a04e598dbeca909789e92a88ddc8e16556721382647fa8940fbf1a06523f22951330dba469580ab8506b0abe40bee8fb7aaaa232e5a36dca0e1fa01685f4a1c686d0c8190f9a2979e0eb83d46ec348985dc054f2c814f4a2dabd0351bdde813d9046dae1ae168e6739dca22b8cb7718e0268e87af5e8ccdad9401de4c2305768c4b47605ef448857ba228ef6a2a5041600062cf12493bf1757e7a7830925ac0bbdc5524bb1c48e6b0b7bf707344d5c372ad13fb24991bac28adc29a582eaa60e5b17243631ca954feff4b7f718a163966b2bf6b3e638ad5259d0a430ce9bb9bce354297966570035284
     TransformParentChanges: []
   ParentPrefabGUID: 
   PrefabGUID: 23d6337f40f4d49b58a2e1bd81017e06
 --- !u!114 &11452898
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 33
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 165878}
@@ -1140,7 +1140,7 @@ MonoBehaviour:
   PrefabGUID: 203a765a6d7f54b61b1a36ce5367840a
 --- !u!114 &11457480
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 33
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 115970}
@@ -1177,7 +1177,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   POWER: 6
-  ThrusterType: 4
+  ThrusterType: 3
   ApplyForceOn: {fileID: 5059472}
   Particles: {fileID: 19802826}
 --- !u!114 &11476158
@@ -1197,7 +1197,7 @@ MonoBehaviour:
   Particles: {fileID: 19822632}
 --- !u!114 &11478614
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 33
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 179454}
@@ -1248,13 +1248,13 @@ MonoBehaviour:
     - child: {fileID: 471878}
       parent: {fileID: 469072}
     NonPrefabComponents:
-    - child: {fileID: 25512064}
-      parent: {fileID: 179454}
     - child: {fileID: 25503126}
       parent: {fileID: 179454}
-    - child: {fileID: 25523404}
-      parent: {fileID: 179454}
     - child: {fileID: 25585694}
+      parent: {fileID: 179454}
+    - child: {fileID: 25512064}
+      parent: {fileID: 179454}
+    - child: {fileID: 25523404}
       parent: {fileID: 179454}
     RemovedObjects: 
     TransformParentChanges: []
@@ -1262,7 +1262,7 @@ MonoBehaviour:
   PrefabGUID: 28ec447399b924af1a7f7ed3a9404b2a
 --- !u!114 &11481976
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 33
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 179562}
@@ -1372,7 +1372,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
 --- !u!114 &11496352
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 33
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 129926}

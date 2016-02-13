@@ -24,14 +24,14 @@ public class InputScript : MonoBehaviour
                 var msg = SpawnMsg();
                 msg.activate = true;
                 msg.type = kvp.Key;
-                Controller.ReceiveMsg(42, msg );
+                Controller.ReceiveMsg( msg, 42 );
             }
             else if (Input.GetKeyUp(kvp.Value))
             {
                 var msg = SpawnMsg();
                 msg.activate = false;
                 msg.type = kvp.Key;
-                Controller.ReceiveMsg(42, msg );            
+                Controller.ReceiveMsg(msg, 42);            
             }
         }
     }

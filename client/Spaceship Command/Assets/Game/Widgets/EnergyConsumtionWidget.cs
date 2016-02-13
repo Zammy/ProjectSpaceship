@@ -73,7 +73,7 @@ public class EnergyConsumtionWidget : MonoBehaviour, IMessageReceiver
 
     #region IMessageReceiver implementation
 
-    public void ReceiveMsg(int connectionId, INetMsg msg)
+    public void ReceiveMsg(INetMsg msg, int _)
     {
         var energyCons = msg as EnergyConsumtionMsg;
         if (energyCons != null && energyCons.Station == this.Station)

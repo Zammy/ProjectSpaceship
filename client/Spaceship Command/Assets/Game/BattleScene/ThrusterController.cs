@@ -19,7 +19,7 @@ public class ThrusterController : MonoBehaviour, IMessageReceiver
     }
         
 
-    public void ReceiveMsg(int connectionId, INetMsg msg)
+    public void ReceiveMsg(INetMsg msg, int connectionId)
     {
         var thrusterMsg = msg as ThrusterMsg;
         if (thrusterMsg != null)

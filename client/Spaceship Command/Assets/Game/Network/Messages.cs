@@ -48,7 +48,7 @@ namespace Networking
 
             for (uint i = 0; i < allNetworkMessages.Count; i++)
             {
-                Debug.LogFormat("Adding type {0} on index {1}", allNetworkMessages[(int)i], i);
+                Debug.LogFormat("[CoreNetwork] Adding type {0} on index {1}", allNetworkMessages[(int)i], i);
                 msgIndexer.Add(allNetworkMessages[(int)i], i);
             }
         }
@@ -69,7 +69,7 @@ namespace Networking
             Type type = GetMsgTypeFromIndex(messageIndex);
             if (type == null)
             {
-                Debug.LogErrorFormat("Could not find type with index {0}", messageIndex);
+                Debug.LogErrorFormat("[CoreNetwork] Could not find type with index {0}", messageIndex);
                 return null;
             }
             var msg = System.Activator.CreateInstance(type) as MessageBase;
@@ -166,4 +166,34 @@ namespace Networking
             return string.Format("[EnergyConsumtionMsg: Allegiance={0}, EnergyConsumed={1}, Station={2}]", Allegiance, EnergyConsumed, Station);
         }
     }
+
+    public class ScanTargetMsg : MessageBase, INetMsg
+    {
+        public enum Type 
+        {
+            Add,
+            Remove,
+            Update
+        }
+
+        public ScanTarget ScanTarget;
+
+        public Allegiance Allegiance
+        {
+            get; set;
+        }
+
+        public ScanTargetMsg.Type Action;
+
+        public ScanTargetMsg()
+        {
+            
+        }
+
+        public override string ToString()
+        {
+            return string.Format("[ScanTargetMsg: Allegiance={0} Action={1}, Target={2}]", Allegiance, Action, ScanTarget);
+        }
+    }
+
 }

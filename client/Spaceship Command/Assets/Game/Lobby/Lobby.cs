@@ -209,7 +209,7 @@ public class Lobby : MonoBehaviour, IMessageReceiver
 
     #region IMessageReceiver implementation
 
-    public void ReceiveMsg(int connectionId, INetMsg msg)
+    public void ReceiveMsg(INetMsg msg, int connectionId)
     {
         var stationSelect = msg as StationSelectMsg;
         if (stationSelect != null)
@@ -220,12 +220,18 @@ public class Lobby : MonoBehaviour, IMessageReceiver
         var startBattleMsg = msg as StartBattleMsg;
         if (startBattleMsg != null)
         {
+            CoreNetwork.Instance.StopHostBroadcast();
+
             switch (this.stationSelected)
             {
                 case Stations.Pilot:
                 {
-                    CoreNetwork.Instance.StopHostBroadcast();
                     SceneManager.LoadScene("PilotStation");
+                    break;
+                }
+                case Stations.SensorsAndWeapons:
+                {
+                    SceneManager.LoadScene("SensorsAndWeaponsStation");
                     break;
                 }
                 default:
