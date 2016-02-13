@@ -1,0 +1,60 @@
+[
+    {
+        "filterName": "[CoreNetwork]",
+        "mainColor": {
+            "r": 0.91243588924408,
+            "g": 0.963235318660736,
+            "b": 0.594939470291138,
+            "a": 1.0
+        },
+        "isStandardFilter": false,
+        "useAdvancedColors": false,
+        "customTextColor": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0,
+            "a": 1.0
+        },
+        "customBackgroundColor": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0,
+            "a": 1.0
+        },
+        "searchList": [
+            {
+                "searchString": "[CoreNetwork]",
+                "searchType": "Exact",
+                "removeSearchStringFromLog": false,
+                "logTypeList": [
+                    {
+                        "logType": "Log",
+                        "name": null,
+                        "isEnabled": true,
+                        "collapsed": false,
+                        "itemGUID": "355a303e-c5f0-46a2-9d5a-2bb0ca235e60"
+                    }
+                ],
+                "columnTypeList": [
+                    {
+                        "columnType": "Log",
+                        "name": null,
+                        "isEnabled": true,
+                        "collapsed": false,
+                        "itemGUID": "b3dbaefc-cd81-4cc5-b265-d99da78fe883"
+                    }
+                ],
+                "name": null,
+                "isEnabled": true,
+                "collapsed": false,
+                "itemGUID": "f0c9a5f0-18d3-4bea-a81e-4736e6189fd3"
+            }
+        ],
+        "showInToolbar": true,
+        "hideWhenNoMatches": false,
+        "name": "[CoreNetwork]",
+        "isEnabled": true,
+        "collapsed": true,
+        "itemGUID": "e3918373-13bd-4748-8e42-c8d3cbafc499"
+    }
+]
