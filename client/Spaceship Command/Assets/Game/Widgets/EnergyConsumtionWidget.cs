@@ -7,7 +7,8 @@ public class EnergyConsumtionWidget : MonoBehaviour, IMessageReceiver
 {
     //Set through Unity
     public Text Text;
-    public Image Image;
+    public Image Circle;
+    public Image Spinner;
     public Stations Station;
     //
 
@@ -37,16 +38,14 @@ public class EnergyConsumtionWidget : MonoBehaviour, IMessageReceiver
             this.isOnline = value;
             if (value)
             {
-                this.Image.color = Color.white;
+                this.Text.color = Color.white;
             }
             else
             {
-                this.Image.color = DISABLED_COLOR;
+                this.Text.color = Color.red;
             }
         }
     }
-
-    readonly Color DISABLED_COLOR = new Color(255,255,255,0.4f);
 
 	// Use this for initialization
 	void Start () 
@@ -64,11 +63,11 @@ public class EnergyConsumtionWidget : MonoBehaviour, IMessageReceiver
     {
 	    if (this.isOnline)
         {
-            var rotation = this.Image.transform.rotation;
+            var rotation = this.Spinner.transform.rotation;
             var angles = rotation.eulerAngles;
             angles.z -= 1f;
             rotation.eulerAngles = angles;
-            this.Image.transform.rotation = rotation;
+            this.Spinner.transform.rotation = rotation;
         }
 	}
 

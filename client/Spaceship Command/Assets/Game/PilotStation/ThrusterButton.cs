@@ -37,10 +37,14 @@ public class ThrusterButton : MonoBehaviour
     public void PointerDown()
     {
         CoreNetwork.Instance.Send( new ThrusterMsg(true, this.ThrusterType) );
+
+        this.GetComponent<Image>().color = new Color(255,255,255,0.5f);
     }
 
     public void PointerUp()
     {
         CoreNetwork.Instance.Send( new ThrusterMsg(false, this.ThrusterType) );
+
+        this.GetComponent<Image>().color = new Color(255,255,255, 1f);
     }
 }
