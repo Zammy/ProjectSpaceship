@@ -57,7 +57,8 @@ public class SensorsAndWeaponsStation : MonoBehaviour , IMessageReceiver
             case ScanTargetMsg.Type.Add:
             {
                 var newSensorTargetObj = (GameObject)Instantiate(this.SensorsTargetPrefab, Vector3.zero, Quaternion.identity);
-                newSensorTargetObj.GetComponent<SensorsTarget>().Target = scanTargetMsg.ScanTarget;
+                var sensorsTarget =  newSensorTargetObj.GetComponent<SensorsTarget>();
+                sensorsTarget.Target = scanTargetMsg.ScanTarget;
                 newSensorTargetObj.transform.SetParent( this.TargetsTrans );
                 newSensorTargetObj.transform.localScale = Vector3.one;
                 break;

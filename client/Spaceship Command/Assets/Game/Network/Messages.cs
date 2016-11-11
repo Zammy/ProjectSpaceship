@@ -196,4 +196,33 @@ namespace Networking
         }
     }
 
+    public class LockCameraMsg : MessageBase, INetMsg
+    {
+        public enum Type
+        {
+            LockCamera,
+            UnlockCamera
+        }
+
+        public Allegiance Allegiance
+        {
+            get; set;
+        }
+
+        public int TargetID;
+
+        public LockCameraMsg.Type Action;
+
+
+        public LockCameraMsg()
+        {
+            
+        }
+
+        public override string ToString()
+        {
+            return string.Format("[LockCameraMsg: Allegiance={0} TargetID={1}, Action={2}]", Allegiance, Action, TargetID);
+        }
+    }
+
 }

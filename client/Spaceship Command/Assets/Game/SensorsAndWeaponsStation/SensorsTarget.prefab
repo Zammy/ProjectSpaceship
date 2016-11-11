@@ -162,6 +162,7 @@ MonoBehaviour:
   Name: {fileID: 11484590}
   Distance: {fileID: 11418432}
   Direction: {fileID: 11411530}
+  LockCameraButton: {fileID: 11479062}
 --- !u!114 &11402088
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -341,12 +342,54 @@ MonoBehaviour:
       ObjeckLink: 1642788458
       PropertyPath: m_SizeDelta
       Mode: 0
+    - Object: {fileID: 11479062}
+      ObjeckLink: -700081675
+      PropertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      Mode: 0
+    - Object: {fileID: 11479062}
+      ObjeckLink: -700081675
+      PropertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      Mode: 0
+    - Object: {fileID: 11479062}
+      ObjeckLink: -700081675
+      PropertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      Mode: 0
+    - Object: {fileID: 11479062}
+      ObjeckLink: -700081675
+      PropertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      Mode: 0
+    - Object: {fileID: 11479062}
+      ObjeckLink: -700081675
+      PropertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      Mode: 0
+    - Object: {fileID: 11479062}
+      ObjeckLink: -700081675
+      PropertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      Mode: 0
+    - Object: {fileID: 11479062}
+      ObjeckLink: -700081675
+      PropertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_FloatArgument
+      Mode: 0
+    - Object: {fileID: 11479062}
+      ObjeckLink: -700081675
+      PropertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      Mode: 0
+    - Object: {fileID: 11479062}
+      ObjeckLink: -700081675
+      PropertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      Mode: 0
+    - Object: {fileID: 11479062}
+      ObjeckLink: -700081675
+      PropertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      Mode: 0
     - Object: {fileID: 11433598}
       ObjeckLink: -737438273
       PropertyPath: m_Text
       Mode: 0
     NonPrefabObjects: []
-    NonPrefabComponents: []
+    NonPrefabComponents:
+    - child: {fileID: 11445500}
+      parent: {fileID: 115252}
     RemovedObjects: 
     TransformParentChanges: []
   ParentPrefabGUID: 
@@ -561,7 +604,7 @@ MonoBehaviour:
   PrefabGUID: f94d5ebf07e3f4782bb01f231c7bcc64
 --- !u!114 &11445500
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 33
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 115252}
@@ -578,9 +621,11 @@ MonoBehaviour:
     Links: []
   Modifications:
     Modificated: []
-    NonPrefabObjects: []
+    NonPrefabObjects:
+    - child: {fileID: 22492750}
+      parent: {fileID: 22436424}
     NonPrefabComponents: []
-    RemovedObjects: 
+    RemovedObjects: a361084c36196ba491ed90a09663eca1bc756125097a03bdf340386f41f73bddcb950e7464cdbb9ba09ca6fd9cab44cf9928062d280ee5ca393ad75b2119f44b61e70e07f458b0dd9d3e555b0335016aa841956e3c1845302bc184ecae111851ba9479b60a7a1d202536de55508816565850838c6a630ed28938299567d6967fca98d6a2d81cf6b301ef935390e161cb
     TransformParentChanges: []
   ParentPrefabGUID: 
   PrefabGUID: 7424d36efd270451fac362a4ae40b684
@@ -634,7 +679,7 @@ MonoBehaviour:
     - child: {fileID: 22496300}
       parent: {fileID: 22448712}
     NonPrefabComponents: []
-    RemovedObjects: a361084c36196ba491ed90a09663eca1bc756125097a03bdf340386f41f73bddcb950e7464cdbb9ba09ca6fd9cab44cf9928062d280ee5ca393ad75b2119f44b61e70e07f458b0dd9d3e555b0335016aa841956e3c1845302bc184ecae111851ba9479b60a7a1d202536de55508816565850838c6a630ed28938299567d6967fca98d6a2d81cf6b3
+    RemovedObjects: a361084c36196ba491ed90a09663eca1bc756125097a03bdf340386f41f73bddcb950e7464cdbb9ba09ca6fd9cab44cf9928062d280ee5ca393ad75b2119f44b61e70e07f458b0dd9d3e555b0335016aa841956e3c1845302bc184ecae111851ba9479b60a7a1d202536de55508816565850838c6a630ed28938299567d6967fca98d6a2d81cf6b301ef935390e161cb
     TransformParentChanges: []
   ParentPrefabGUID: 
   PrefabGUID: 7424d36efd270451fac362a4ae40b684
@@ -681,7 +726,7 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &11472926
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 33
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 182914}
@@ -698,9 +743,11 @@ MonoBehaviour:
     Links: []
   Modifications:
     Modificated: []
-    NonPrefabObjects: []
+    NonPrefabObjects:
+    - child: {fileID: 22494682}
+      parent: {fileID: 22422314}
     NonPrefabComponents: []
-    RemovedObjects: 
+    RemovedObjects: a361084c36196ba491ed90a09663eca1bc756125097a03bdf340386f41f73bddcb950e7464cdbb9ba09ca6fd9cab44cf9928062d280ee5ca393ad75b2119f44b61e70e07f458b0dd9d3e555b0335016aa841956e3c1845302bc184ecae111851ba9479b60a7a1d202536de55508816565850838c6a630ed28938299567d6967fca98d6a2d81cf6b301ef935390e161cb
     TransformParentChanges: []
   ParentPrefabGUID: 
   PrefabGUID: 7424d36efd270451fac362a4ae40b684
@@ -742,7 +789,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 11402088}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11401948}
+        m_MethodName: LockTargetButtonClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &11480400
@@ -813,7 +871,9 @@ MonoBehaviour:
       PropertyPath: m_Text
       Mode: 0
     NonPrefabObjects: []
-    NonPrefabComponents: []
+    NonPrefabComponents:
+    - child: {fileID: 11472926}
+      parent: {fileID: 182914}
     RemovedObjects: 
     TransformParentChanges: []
   ParentPrefabGUID: 
@@ -928,6 +988,10 @@ MonoBehaviour:
     - Object: {fileID: 22448712}
       ObjeckLink: -1830688271
       PropertyPath: m_RootOrder
+      Mode: 0
+    - Object: {fileID: 11401948}
+      ObjeckLink: -1562994486
+      PropertyPath: LockCameraButton
       Mode: 0
     NonPrefabObjects: []
     NonPrefabComponents: []

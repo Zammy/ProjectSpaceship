@@ -1,31 +1,39 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class FocusCamera : MonoBehaviour 
 {
-    public GameObject[] FocusOn;
-
+    public List<GameObject> FocusOn = new List<GameObject>();
     public Camera Camera;
 
     float targetOrtho;
     Vector3 targetPos;
 
-
-    const float BUFFER = 1;
+    float defaultCameraOrtho;
+    const float BUFFER = 2;
     const float orthoMovePerSec = 10f;
     const float posMovePerSec = 30f;
-
 
 	// Use this for initialization
 	void Start () 
     {
-        this.Camera = this.GetComponent<Camera>();
+        if (this.Camera == null)
+            return;
+
+        this.defaultCameraOrtho = this.Camera.orthographicSize;
 
         this.CalculateCameraSizeAndPos();
-	}   
+	}
 
 	void Update () 
     {
+        if (this.Camera == null)
+            return;
+
+        if (this.FocusOn.Count == 0)
+            return;
+
         this.CalculateCameraSizeAndPos();
 
         if (Mathf.Abs(this.Camera.orthographicSize - this.targetOrtho) > 0.1f)
@@ -72,7 +80,7 @@ public class FocusCamera : MonoBehaviour
         CalculateMinWidth( FocusOn, out minWidth, out mediumX );
 
         float calcHeight = minHeight + BUFFER;
-        float calcWidth = calcHeight * this.Camera.aspect;
+        float calcWidth = calcHeight * this.Camera.aspect + BUFFER;
         if (calcWidth < minWidth)
         {
             calcWidth = minWidth;
@@ -81,9 +89,14 @@ public class FocusCamera : MonoBehaviour
 
         this.targetOrtho = calcHeight / 2;
         this.targetPos = new Vector3(mediumX, mediumY, this.Camera.transform.position.z);
+
+        if (this.targetOrtho < this.defaultCameraOrtho)
+        {
+            this.targetOrtho = this.defaultCameraOrtho;
+        }
     }
 
-    void CalculateMinWidth(GameObject[] gos, out float minWidth, out float mediumX)
+    void CalculateMinWidth(List<GameObject> gos, out float minWidth, out float mediumX)
     {
         float minX = float.MaxValue;
         float maxX = float.MinValue;
@@ -106,7 +119,7 @@ public class FocusCamera : MonoBehaviour
         mediumX = minX + minWidth / 2;
     }
 
-    void CalculateMinHeight(GameObject[] gos, out float minHeight, out float mediumY)
+    void CalculateMinHeight(List<GameObject> gos, out float minHeight, out float mediumY)
     {
         float minY = float.MaxValue;
         float maxY = float.MinValue;

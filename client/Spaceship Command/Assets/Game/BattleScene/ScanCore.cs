@@ -24,10 +24,11 @@ public class ScanTarget
     }
 }
 
-public class ScanCore : MonoBehaviour 
+public class ScanCore : MonoBehaviour, IMessageReceiver
 {
     //Set through Unity
     public Transform ShipTransform;
+    public FocusCamera FocusCamera;
     //
 
     Allegiance allegiance;
@@ -42,12 +43,19 @@ public class ScanCore : MonoBehaviour
     int objIdCounter = 0;
 
 	// Use this for initialization
-	void Start () 
+	void Start ()
     {
         this.allegiance = this.GetComponent<AllegianceDesignator>().Allegiance;
 
         this.nextTargetsUpdate = Time.time + UPDATE_SEND_RATE;
+
+        CoreNetwork.Instance.Subscribe(this);
 	}
+
+    void OnDestroy()
+    {
+        CoreNetwork.Instance.Unsubscribe(this);
+    }
 	
 	// Update is called once per frame
 	void FixedUpdate () 
@@ -135,4 +143,60 @@ public class ScanCore : MonoBehaviour
         return null;
     }
 
+    ScanTarget GetScanTargetForID(int id)
+    {
+        foreach(var scanTarget in this.objectsInRange)
+        {
+            if (scanTarget.ID == id)
+            {
+                return scanTarget;
+            }
+        }
+        return null;
+    }
+
+    void LockCameraOn(int id)
+    {
+        var target = this.GetScanTargetForID(id);
+        this.FocusCamera.FocusOn.Add ( target.Object.transform.parent.gameObject );
+
+        var camera = this.FocusCamera.Camera;
+        camera.transform.SetParent(this.ShipTransform.transform.parent);
+        camera.transform.position = Vector3.zero;
+
+        this.FocusCamera.enabled = true;
+    }
+
+    void UnlockCameraFrom(int id)
+    {
+        var target = this.GetScanTargetForID(id);
+        this.FocusCamera.FocusOn.Remove ( target.Object.transform.parent.gameObject );
+
+        if (this.FocusCamera.FocusOn.Count == 1)
+        {
+            var camera = this.FocusCamera.Camera;
+            camera.transform.SetParent(this.ShipTransform.transform);
+            camera.transform.position = Vector3.zero;
+
+            this.FocusCamera.enabled = false;
+        }
+    }
+
+    #region IMessageReceiver implementation
+    public void ReceiveMsg(INetMsg msg, int connectionId)
+    {
+        var lockCameraMsg = msg as LockCameraMsg;
+        if (lockCameraMsg != null)
+        {
+            if (lockCameraMsg.Action == LockCameraMsg.Type.LockCamera)
+            {
+                this.LockCameraOn(lockCameraMsg.TargetID);
+            }
+            else
+            {
+                this.UnlockCameraFrom(lockCameraMsg.TargetID);
+            }
+        }
+    }
+    #endregion
 }
